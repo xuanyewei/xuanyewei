@@ -3289,193 +3289,6 @@
     background: #fffafa;
 }
 
-/* ========== 平行世界 (AU) 剧场样式 ========== */
-#au-module {
-    position: fixed;
-    inset: 0;
-    background: #f0f2f5;
-    z-index: 4000;
-    display: none;
-    flex-direction: column;
-}
-
-.au-header {
-    background: linear-gradient(135deg, #2c3e50, #4ca1af); /* 深邃风格 */
-    padding: 15px 20px;
-    color: white;
-    display: flex;
-    align-items: center;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-
-.au-body {
-    flex: 1;
-    overflow-y: auto;
-    padding: 20px;
-    max-width: 800px;
-    margin: 0 auto;
-    width: 100%;
-}
-
-/* 设定选择区 */
-.au-setup-card {
-    background: white;
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-}
-
-.au-section-title {
-    font-size: 0.95rem;
-    font-weight: bold;
-    color: #2c3e50;
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-/* 主题网格 */
-.au-theme-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 12px;
-}
-
-.au-theme-card {
-    border: 2px solid #eee;
-    border-radius: 10px;
-    padding: 15px 10px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s;
-    background: #fafafa;
-}
-
-.au-theme-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-.au-theme-card.active {
-    border-color: #4ca1af;
-    background: #eef7f8;
-    color: #2c3e50;
-}
-
-.au-theme-icon {
-    font-size: 1.8rem;
-    margin-bottom: 8px;
-    display: block;
-}
-
-.au-theme-name {
-    font-weight: bold;
-    font-size: 0.9rem;
-}
-
-.au-theme-desc {
-    font-size: 0.7rem;
-    color: #888;
-    margin-top: 4px;
-}
-
-/* 角色选择 (复用同人文的样式，微调) */
-.au-char-select {
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
-    padding-bottom: 10px;
-}
-
-.au-char-item {
-    flex: 0 0 auto;
-    width: 70px;
-    text-align: center;
-    cursor: pointer;
-    opacity: 0.6;
-    transition: all 0.2s;
-}
-
-.au-char-item.active {
-    opacity: 1;
-    transform: scale(1.1);
-}
-
-.au-char-avatar {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: #ddd;
-    margin: 0 auto 5px;
-    border: 2px solid transparent;
-    overflow: hidden;
-}
-
-.au-char-item.active .au-char-avatar {
-    border-color: #4ca1af;
-    box-shadow: 0 0 10px rgba(76, 161, 175, 0.3);
-}
-
-/* 生成结果显示区 */
-.au-result-area {
-    background: white;
-    border-radius: 12px;
-    padding: 25px;
-    min-height: 200px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-    display: none; /* 初始隐藏 */
-    animation: fadeIn 0.5s;
-    position: relative;
-}
-
-.au-story-content {
-    font-size: 1rem;
-    line-height: 1.8;
-    color: #333;
-    font-family: var(--font-serif);
-    white-space: pre-wrap;
-}
-
-.au-story-title {
-    font-size: 1.3rem;
-    font-weight: bold;
-    color: #2c3e50;
-    text-align: center;
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-    border-bottom: 2px solid #f0f0f0;
-}
-
-.au-action-btn {
-    width: 100%;
-    padding: 14px;
-    background: linear-gradient(135deg, #2c3e50, #4ca1af);
-    color: white;
-    border: none;
-    border-radius: 25px;
-    font-size: 1rem;
-    cursor: pointer;
-    margin-top: 10px;
-    font-weight: bold;
-    box-shadow: 0 4px 15px rgba(44, 62, 80, 0.3);
-    transition: all 0.3s;
-}
-
-.au-action-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(44, 62, 80, 0.4);
-}
-
-.au-loading {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 40px;
-    color: #666;
-}
 /* ========== 🆕 图鉴右上角关闭按钮样式 ========== */
 .guards-gallery-header {
     position: relative; /* 关键：为了让叉号绝对定位 */
@@ -3505,6 +3318,460 @@
     color: #ff6b6b;
     background: rgba(0,0,0,0.05);
     transform: rotate(90deg);
+}
+
+/* ========== 平行世界 (AU) 剧场样式 - 优化版 ========== */
+#au-module {
+    position: fixed;
+    inset: 0;
+    background: #f8faf9;
+    z-index: 4000;
+    display: none;
+    flex-direction: column;
+}
+
+.au-header {
+    background: linear-gradient(135deg, #8da399 0%, #a8c4b8 100%);
+    padding: 12px 20px;
+    color: white;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.au-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    max-width: 850px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.au-setup-card {
+    background: white;
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    border: 1px solid #e8ebe9;
+}
+
+.au-section-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #5d6e65;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-serif);
+    letter-spacing: 1px;
+}
+
+.au-theme-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.au-theme-card {
+    border: 1px solid #d8e0d8;
+    border-radius: 8px;
+    padding: 12px 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    background: #fafbfa;
+}
+
+.au-theme-card:hover {
+    transform: translateY(-2px);
+    border-color: #a8c4b8;
+    box-shadow: 0 4px 10px rgba(141, 163, 153, 0.12);
+}
+
+.au-theme-card.active {
+    border-color: #8da399;
+    background: rgba(141, 163, 153, 0.08);
+    color: #5d6e65;
+}
+
+.au-theme-icon {
+    font-size: 1.6rem;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.au-theme-name {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #5d6e65;
+}
+
+.au-theme-desc {
+    font-size: 0.65rem;
+    color: #a0a8a0;
+    margin-top: 3px;
+}
+
+.au-char-select {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 10px 0;
+    padding-bottom: 5px;
+}
+
+.au-char-item {
+    flex: 0 0 auto;
+    width: 65px;
+    text-align: center;
+    cursor: pointer;
+    opacity: 0.55;
+    transition: all 0.2s;
+    position: relative;
+}
+
+.au-char-item:active {
+    opacity: 1;
+}
+
+.au-char-item.active {
+    opacity: 1;
+}
+
+.au-char-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #e8ebe9;
+    margin: 0 auto 5px;
+    border: 2px solid #d8e0d8;
+    overflow: hidden;
+    transition: all 0.2s;
+}
+
+.au-char-item.active .au-char-avatar {
+    border-color: #8da399;
+    box-shadow: 0 0 8px rgba(141, 163, 153, 0.25);
+}
+
+.au-char-item-name {
+    font-size: 0.7rem;
+    color: #758075;
+}
+
+.au-result-area {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    min-height: 250px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    border: 1px solid #e8ebe9;
+    display: none;
+    animation: fadeIn 0.5s;
+    position: relative;
+    margin-bottom: 80px;
+}
+
+.au-story-content {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: #444;
+    font-family: var(--font-serif);
+    white-space: pre-wrap;
+}
+
+.au-story-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #5d6e65;
+    text-align: center;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e8ebe9;
+    font-family: var(--font-serif);
+}
+
+.au-action-btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #8da399, #a8c4b8);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    margin-top: 8px;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(141, 163, 153, 0.2);
+    transition: all 0.25s;
+    font-family: var(--font-serif);
+}
+
+.au-action-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(141, 163, 153, 0.3);
+}
+
+.au-action-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.au-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    color: #8da399;
+}
+
+/* 世界列表卡片 */
+#au-world-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.au-world-card {
+    background: white;
+    border: 1px solid #e8ebe9;
+    border-radius: 8px;
+    padding: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+}
+
+.au-world-card:hover {
+    border-color: #a8c4b8;
+    box-shadow: 0 2px 8px rgba(141, 163, 153, 0.1);
+}
+
+.au-world-card-title {
+    font-weight: 600;
+    color: #5d6e65;
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+    font-family: var(--font-serif);
+}
+
+.au-world-card-meta {
+    font-size: 0.8rem;
+    color: #a0a8a0;
+}
+
+.au-world-card-desc {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 6px;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.au-world-card-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.au-world-action-btn {
+    flex: 1;
+    padding: 6px;
+    border: 1px solid #d8e0d8;
+    background: #f8faf9;
+    color: #5d6e65;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.au-world-action-btn:hover {
+    background: #8da399;
+    color: white;
+    border-color: #8da399;
+}
+
+.au-world-action-btn.delete {
+    background: #f5e8e8;
+    color: #c77;
+    border-color: #e8d0d0;
+}
+
+.au-world-action-btn.delete:hover {
+    background: #c77;
+    color: white;
+    border-color: #c77;
+}
+
+/* 长按菜单 */
+.au-context-menu {
+    position: fixed;
+    background: white;
+    border: 1px solid #d8e0d8;
+    border-radius: 8px;
+    padding: 6px 0;
+    z-index: 5000;
+    min-width: 140px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    display: none;
+}
+
+.au-context-menu.show {
+    display: block;
+}
+
+.au-menu-item {
+    padding: 10px 16px;
+    color: #5d6e65;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.au-menu-item:hover {
+    background: #f8faf9;
+    color: #8da399;
+}
+
+.au-menu-item.danger {
+    color: #c77;
+}
+
+.au-menu-item.danger:hover {
+    background: #f5e8e8;
+}
+
+.au-menu-item:first-child {
+    border-radius: 8px 8px 0 0;
+}
+
+.au-menu-item:last-child {
+    border-radius: 0 0 8px 8px;
+}
+
+.au-menu-item + .au-menu-item {
+    border-top: 1px solid #e8ebe9;
+}
+
+/* 剧场视图输入区 */
+#au-theater-view {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#au-chat-history {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    padding-bottom: 100px;  /* 新增：给底部留空间 */
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.au-chat-msg {
+    max-width: 85%;
+    padding: 12px 14px;
+    border-radius: 8px;
+    line-height: 1.6;
+    word-wrap: break-word;
+}
+
+.au-chat-msg.user {
+    margin-left: auto;
+    background: #8da399;
+    color: white;
+    border-top-right-radius: 2px;
+}
+
+.au-chat-msg.ai {
+    margin-right: auto;
+    background: #f8faf9;
+    color: #333;
+    border: 1px solid #e8ebe9;
+    border-top-left-radius: 2px;
+}
+
+.au-input-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 1px solid #e8ebe9;
+    padding: 12px 15px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    z-index: 4100;
+}
+
+.au-input-footer textarea {
+    flex: 1;
+    border: 1px solid #d8e0d8;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    resize: none;
+    height: 40px;
+    outline: none;
+    font-family: inherit;
+}
+
+.au-input-footer textarea:focus {
+    border-color: #8da399;
+    background: #fafbfa;
+}
+
+.au-input-footer button {
+    padding: 10px 20px;
+    background: #8da399;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.au-input-footer button:hover {
+    background: #7b9186;
+}
+
+.au-input-footer button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* 返回按钮 */
+.au-back-btn {
+    padding: 8px 16px;
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.au-back-btn:hover {
+    background: rgba(255,255,255,0.3);
 }
 </style>
 </head>
@@ -4346,6 +4613,79 @@
         <!-- 动态生成按钮 -->
     </div>
 </div>
+
+<!-- ========== 平行世界(AU)剧场模块 ========== -->
+<div id="au-module">
+    <div class="au-header">
+        <button class="au-back-btn" onclick="closeAUModule()">← 返回</button>
+        <span id="au-view-title" style="flex:1;text-align:center;font-weight:bold;">跨时空剧场</span>
+        <div style="width:60px;"></div>
+    </div>
+    
+    <div class="au-body">
+        <!-- 构造器 -->
+        <div id="au-constructor">
+            <div class="au-setup-card">
+                <div class="au-section-title">◆ 选择穿越角色</div>
+                <div class="au-char-select" id="au-char-selector-list"></div>
+            </div>
+            
+            <div class="au-setup-card">
+                <div class="au-section-title">◆ 世界主题</div>
+                <input type="text" id="au-theme-input" class="input-full" placeholder="例如：现代都市、末日废土、克苏鲁、校园...">
+            </div>
+            
+            <div class="au-setup-card">
+                <div class="au-section-title">◆ 你的身份</div>
+                <input type="text" id="au-identity-input" class="input-full" placeholder="例如：财阀千金、普通大学生、侦探...">
+            </div>
+            
+            <div class="au-setup-card">
+                <div class="au-section-title">◆ 补充设定（可选）</div>
+                <textarea id="au-desc-input" class="setup-textarea" placeholder="描述更多世界背景或剧情走向..."></textarea>
+            </div>
+            
+            <button class="au-action-btn" onclick="createNewAUWorld()">● 开启新世界</button>
+        </div>
+        
+        <!-- 世界存档列表 -->
+        <div id="au-world-list-container" style="margin-top:20px;">
+            <div class="au-section-title">◇ 已有时空存档</div>
+            <div id="au-world-list"></div>
+        </div>
+        
+        <!-- 剧场视图 -->
+        <div id="au-theater-view" style="display:none;">
+            <div id="au-chat-history"></div>
+            
+            <div class="au-input-footer">
+                <textarea id="au-user-input" placeholder="你的行动..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAUAction();}"></textarea>
+                <button onclick="sendAUAction()">行动</button>
+            </div>
+        </div>
+        
+                <!-- 剧场视图 -->
+        <div id="au-theater-view" style="display:none;">
+            <div id="au-chat-history"></div>
+            
+            <div class="au-input-footer">
+                <textarea id="au-user-input" placeholder="你的行动..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAUAction();}"></textarea>
+                <button onclick="sendAUAction()">行动</button>
+            </div>
+        </div>
+        
+        <!-- 加载提示 -->
+        <div id="au-loading" class="au-loading" style="display:none;">
+            <div class="fanfic-loading-spinner"></div>
+            <div id="au-loading-text">因果推演中...</div>
+        </div>
+    </div>
+</div>
+
+<div id="au-context-menu" class="au-context-menu">
+    <div class="au-menu-item" onclick="auRegenMessage()">● 重回此景</div>
+    <div class="au-menu-item danger" onclick="auDeleteMessage()">● 删除消息</div>
+</div>
 <script>
     // ========== 全局状态 ==========
     let state = {
@@ -4588,8 +4928,13 @@
         document.getElementById('home-screen').classList.remove('hidden');
     }
     
-    function enterGame() {
+        function enterGame() {
         document.getElementById('home-screen').classList.add('hidden');
+        // 新增：进入界面时强制滚动到底部
+        setTimeout(() => {
+            const panel = document.getElementById('history-panel');
+            if(panel) panel.scrollTop = panel.scrollHeight;
+        }, 300); // 这里的300毫秒是为了等待界面切换动画完成
     }
 
     // ========== 用户面板 ==========
@@ -5441,14 +5786,18 @@ ${recentContext}
         showToast('记忆摘要已保存');
     }
 
-    // ========== 历史记录渲染 ==========
     function renderHistory() {
         const panel = document.getElementById('history-panel');
         panel.innerHTML = '';
         (state.history || []).forEach((msg, i) => {
             appendMsg(msg.role === 'user' ? 'user' : 'ai', msg.content, i);
         });
+        // 新增：渲染完后自动滚动到底部
+        setTimeout(() => {
+            panel.scrollTop = panel.scrollHeight;
+        }, 100); 
     }
+
 
     // ========== 消息编辑 ==========
     function openMessageEditor(index) {
@@ -8366,7 +8715,312 @@ async function deleteWholeBook() {
 // ========== 模块初始化结束 ==========
 console.log('同人文模块加载完成');
 
+// ========== AU模块长按菜单功能 ==========
+let auContextIndex = null;
 
+function showAUContextMenu(e, index) {
+    e.preventDefault();
+    auContextIndex = index;
+    
+    const menu = document.getElementById('au-context-menu');
+    let x = e.touches ? e.touches[0].clientX : e.clientX;
+    let y = e.touches ? e.touches[0].clientY : e.clientY;
+    
+    menu.style.left = x + 'px';
+    menu.style.top = y + 'px';
+    menu.classList.add('show');
+}
+
+function hideAUContextMenu() {
+    document.getElementById('au-context-menu').classList.remove('show');
+}
+
+// 点击其他地方关闭菜单
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.au-context-menu')) {
+        hideAUContextMenu();
+    }
+});
+
+
+// 重新生成
+async function auRegenMessage() {
+    hideAUContextMenu();
+    const world = auState.worlds.find(w => w.id === auState.currentWorldId);
+    if (!world || auContextIndex === null) return;
+    
+    const msg = world.history[auContextIndex];
+    if (msg.role !== 'assistant') {
+        showToast('只能重新生成AI回复');
+        return;
+    }
+    
+    // 删除这条及之后的消息
+    world.history = world.history.slice(0, auContextIndex);
+    await saveData();
+    renderAUHistory();
+    
+    // 自动调用行动函数，此时会显示“对方正在行动中...”
+    sendAUAction("继续");
+}
+
+// 删除消息
+async function auDeleteMessage() {
+    hideAUContextMenu();
+    if (!confirm('确定删除这条消息？')) return;
+    
+    const world = auState.worlds.find(w => w.id === auState.currentWorldId);
+    if (!world || auContextIndex === null) return;
+    
+    world.history.splice(auContextIndex, 1);
+    await saveData();
+    renderAUHistory();
+    showToast('已删除');
+}
+
+// ========== 增强版 AU 模块逻辑 ==========
+let auState = {
+    currentWorldId: null,
+    selectedChars: [], // 穿越角色
+    worlds: [] // 世界存档：{id, theme, identity, desc, chars, history: []}
+};
+
+function openAUModule() {
+    closeModal('entertainment-modal');
+    document.getElementById('au-module').style.display = 'flex';
+    
+    // 初始化数据
+    if (state.auWorlds) auState.worlds = state.auWorlds;
+    
+    showAUHome();
+}
+
+function showAUHome() {
+    document.getElementById('au-constructor').style.display = 'block';
+    document.getElementById('au-world-list-container').style.display = 'block';
+    document.getElementById('au-theater-view').style.display = 'none';
+    document.getElementById('au-view-title').innerText = "跨时空剧场";
+    renderAUWorldList();
+    renderAUCharSelector();
+}
+
+// 渲染角色选择
+function renderAUCharSelector() {
+    const container = document.getElementById('au-char-selector-list');
+    container.innerHTML = '';
+    const unlockedGuards = (state.guards || []).filter(g => g.unlocked);
+    
+    unlockedGuards.forEach(g => {
+        const item = document.createElement('div');
+        item.className = 'au-char-item';
+        item.dataset.id = g.id;
+        const isSelected = auState.selectedChars.includes(g.id);
+        if(isSelected) item.classList.add('active');
+        
+        item.onclick = () => {
+            const idx = auState.selectedChars.indexOf(g.id);
+            if(idx > -1) auState.selectedChars.splice(idx, 1);
+            else auState.selectedChars.push(g.id);
+            renderAUCharSelector();
+        };
+        
+        item.innerHTML = `
+            <div class="au-char-avatar">${g.avatar ? `<img src="${g.avatar}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">` : g.name[0]}</div>
+            <div style="font-size:0.7rem;color:#555;">${g.name}</div>
+        `;
+        container.appendChild(item);
+    });
+}
+
+// 构造新世界
+async function createNewAUWorld() {
+    const theme = document.getElementById('au-theme-input').value.trim();
+    const identity = document.getElementById('au-identity-input').value.trim();
+    const desc = document.getElementById('au-desc-input').value.trim();
+    
+    if(!theme || !identity) {
+        showToast("请填写世界主题和您的身份");
+        return;
+    }
+
+    const newWorld = {
+        id: 'au_' + Date.now(),
+        theme,
+        identity,
+        desc,
+        charIds: [...auState.selectedChars],
+        history: [],
+        createTime: new Date().toLocaleString()
+    };
+
+    auState.worlds.push(newWorld);
+    state.auWorlds = auState.worlds;
+    await saveData();
+    
+    enterAUWorld(newWorld.id);
+}
+
+// 进入特定世界
+function enterAUWorld(worldId) {
+    const world = auState.worlds.find(w => w.id === worldId);
+    if(!world) return;
+
+    auState.currentWorldId = worldId;
+    document.getElementById('au-constructor').style.display = 'none';
+    document.getElementById('au-world-list-container').style.display = 'none';
+    document.getElementById('au-theater-view').style.display = 'block';
+    document.getElementById('au-view-title').innerText = `平行时空：${world.theme}`;
+    
+    renderAUHistory();
+}
+
+// 渲染互动记录
+function renderAUHistory() {
+    const world = auState.worlds.find(w => w.id === auState.currentWorldId);
+    const container = document.getElementById('au-chat-history');
+    container.innerHTML = '';
+    
+    world.history.forEach((msg, index) => {
+        const div = document.createElement('div');
+        div.className = msg.role === 'user' ? 'au-chat-msg user' : 'au-chat-msg ai';
+        div.innerHTML = renderMarkdown(msg.content).replace(/\n/g, '<br>');
+        
+        // 添加长按事件
+        let pressTimer;
+        div.addEventListener('touchstart', (e) => {
+            pressTimer = setTimeout(() => showAUContextMenu(e, index), 500);
+        });
+        div.addEventListener('touchend', () => clearTimeout(pressTimer));
+        div.addEventListener('touchmove', () => clearTimeout(pressTimer));
+        div.addEventListener('contextmenu', (e) => showAUContextMenu(e, index));
+        
+        container.appendChild(div);
+    });
+    
+    container.scrollTop = container.scrollHeight;
+}
+
+
+// 发送交互指令
+async function sendAUAction(customInput = null) {
+    const inputEl = document.getElementById('au-user-input');
+    const actionBtn = document.querySelector('#au-theater-view .au-input-footer button'); // 获取行动按钮
+    const action = customInput || inputEl.value.trim();
+    if(!action) return;
+
+    const world = auState.worlds.find(w => w.id === auState.currentWorldId);
+    
+    // 添加用户指令到历史
+    if(!customInput) {
+        world.history.push({ role: 'user', content: action });
+        renderAUHistory();
+        inputEl.value = '';
+    }
+
+    // --- 修改开始：显示“对方正在行动中”并禁用输入 ---
+    document.getElementById('au-loading').style.display = 'flex';
+    document.getElementById('au-loading-text').innerText = "对方正在行动中..."; 
+    inputEl.disabled = true;       // 禁用输入框
+    actionBtn.disabled = true;     // 禁用按钮
+    // --- 修改结束 ---
+
+    // 构造 AU 专用系统提示词
+    const chars = world.charIds.map(id => state.guards.find(g => g.id === id)).filter(g => g);
+    const charContext = chars.map(c => `【角色：${c.name}，原特质：${(c.tags || []).join('、')}】`).join('\n');
+    
+    const auSystemPrompt = `
+你现在是平行世界（AU）剧场的上帝/主持人。
+用户正在亲身参与一个由她自定义的平行时空互动。
+
+【世界设定】：${world.theme}
+【用户在该世界的身份】：${world.identity}
+【世界补充背景】：${world.desc || '由AI根据主题自由发挥'}
+【随行暗卫】：
+${charContext || '无'}
+
+【核心交互准则】：
+1. **亲身参与**：不要以第三人称写小说。你要描写用户眼前的景象、NPC的对话、以及突发事件。
+2. **沉浸式 GM**：每一段回复应以描写和NPC互动为主，禁止私自定义用户的动作，文风根据世界而改变。
+3. **角色重塑**：暗卫的职业、装束必须完全契合【${world.theme}】。
+4. **禁止表情**：严禁输出任何 emoji。
+`;
+
+    try {
+        const messages = [
+            { role: "system", content: auSystemPrompt },
+            ...world.history.slice(-20)
+        ];
+        
+        const res = await fetch(`${state.config.url}/chat/completions`, {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${state.config.key}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                model: state.config.model,
+                messages: messages,
+                temperature: 0.8
+            })
+        });
+        const data = await res.json();
+        let reply = data.choices[0].message.content;
+
+        world.history.push({ role: 'assistant', content: reply });
+        await saveData();
+        renderAUHistory();
+    } catch (e) {
+        showToast("次元链接失败：" + e.message);
+    } finally {
+        // --- 修改开始：恢复输入状态 ---
+        document.getElementById('au-loading').style.display = 'none';
+        inputEl.disabled = false;      // 恢复输入框
+        actionBtn.disabled = false;    // 恢复按钮
+        inputEl.focus();               // 自动聚焦回到输入框
+        // --- 修改结束 ---
+    }
+}
+
+// 渲染世界存档列表
+function renderAUWorldList() {
+    const list = document.getElementById('au-world-list');
+    list.innerHTML = '';
+    
+    if(auState.worlds.length === 0) {
+        list.innerHTML = '<div style="color:#888;padding:10px;text-align:center;">尚无时空存档</div>';
+        return;
+    }
+
+    auState.worlds.forEach(w => {
+        const card = document.createElement('div');
+        card.className = 'story-card';
+        card.innerHTML = `
+            <div class="story-title">时空：${w.theme}</div>
+            <div class="story-meta">身份：${w.identity} | 进度：${w.history.length} 轮交互</div>
+            <div class="story-intro">${w.desc || '自定义世界线...'}</div>
+            <div style="margin-top:10px; display:flex; gap:10px;">
+                <button class="wb-btn" onclick="event.stopPropagation(); enterAUWorld('${w.id}')">降临</button>
+                <button class="wb-btn delete" onclick="event.stopPropagation(); deleteAUWorld('${w.id}')">崩毁</button>
+            </div>
+        `;
+        card.onclick = () => enterAUWorld(w.id);
+        list.appendChild(card);
+    });
+}
+
+async function deleteAUWorld(id) {
+    if(!confirm("确定崩毁这个世界吗？所有交互记录将永久消失。")) return;
+    auState.worlds = auState.worlds.filter(w => w.id !== id);
+    state.auWorlds = auState.worlds;
+    await saveData();
+    renderAUWorldList();
+}
+
+function closeAUModule() {
+    // 如果在剧场视图，先回到列表
+    if(document.getElementById('au-theater-view').style.display === 'block') {
+        showAUHome();
+    } else {
+        document.getElementById('au-module').style.display = 'none';
+    }
+}
 </script>
 </body>
 </html>
