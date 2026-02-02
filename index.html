@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -6,20 +7,20 @@
     <title>玄夜卫系统 - 完全版</title>
 <style>
     :root {
-        --primary-color: #8da399;
-        --primary-hover: #7b9186;
-        --primary-dark: #6e827a;
-        --primary-light: #a8c4b8;
-        --accent: rgba(255, 255, 255, 0.6);
-        --text-main: #333333;
-        --text-sec: #666666;
-        --text-sub: #758075;
-        --glass-bg: rgba(255, 255, 255, 0.65);
-        --border-radius: 8px;
-        --border: #d8e0d8;
+        --primary-color: #7b9987;        /* 低饱和黛绿 */
+        --primary-hover: #5f7a6a;
+        --primary-dark: #4a5f53;
+        --primary-light: #e8edea;       /* 浅米绿 */
+        --accent: #ffffff;
+        --text-main: #3a453e;           /* 深墨绿文字 */
+        --text-sec: #66756c;
+        --text-sub: #8ea196;
+        --glass-bg: rgba(255, 255, 255, 0.9);
+        --border-radius: 10px;
+        --border: #d2d9d4;              /* 浅绿灰边框 */
         --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.05);
-        --font-serif: "Kaiti SC", "STKaiti", "KaiTi", "BiauKai", "SimKai", "Songti SC", serif;
-        --bg-page: #f5f7f5;
+        --font-serif: "Kaiti SC", "KaiTi", serif;
+        --bg-page: #f4f6f4;             /* 极浅绿底色 */
         --bg-card: #ffffff;
     }
 
@@ -1994,53 +1995,135 @@
 }
 
 
-/* 娱乐系统标题样式 */
-.entertainment-container h2 {
+/* ========== 娱乐系统全适配版样式 ========== */
+
+/* 1. 容器基础样式 */
+#entertainment-modal .entertainment-container {
+    width: 90%;
+    max-width: 550px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: #ffffff;
+    border: 2px solid var(--primary-color);
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+    margin: auto;
+}
+
+#entertainment-modal .entertainment-container h2 {
     text-align: center;
-    font-family: var(--font-serif); /* 使用楷体 */
+    font-family: var(--font-serif);
     color: var(--primary-color);
     border-bottom: 2px solid var(--primary-color);
-    padding-bottom: 15px;
-    margin-bottom: 20px;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    font-size: 1.3rem;
 }
 
-/* 娱乐项目网格布局 - 用于放置多个娱乐模块入口 */
-.entertainment-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 两列布局 */
-    gap: 15px;
-    margin-bottom: 20px;
+/* 2. 网格布局（默认竖屏 2列） */
+#entertainment-modal .entertainment-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+    width: 100% !important;
+    margin-bottom: 20px !important;
 }
 
-/* 单个娱乐项目卡片样式 */
-.entertainment-item {
+/* 3. 方块卡片样式 */
+#entertainment-modal .entertainment-item {
     background: white;
-    border: 2px solid #e0e0e0;
+    border: 1.5px solid #e0e0e0;
     border-radius: 12px;
-    padding: 25px 15px;
+    padding: 15px 10px;
     text-align: center;
     cursor: pointer;
     transition: all 0.3s ease;
     font-family: var(--font-serif);
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: var(--primary-dark);
+    /* 关键修改：取消强制正方形，改为自动高度 */
+    aspect-ratio: auto !important; 
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
 }
 
-/* 鼠标悬停时的效果 */
-.entertainment-item:hover {
+#entertainment-modal .entertainment-item-icon {
+    font-size: 2.2rem;
+    color: var(--primary-color);
+    line-height: 1;
+}
+
+#entertainment-modal .entertainment-item:hover {
     border-color: var(--primary-color);
     background: rgba(141, 163, 153, 0.1);
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(141, 163, 153, 0.3);
 }
 
-/* 娱乐项目图标样式（可选，用于未来扩展） */
-.entertainment-item-icon {
-    font-size: 2rem;
-    margin-bottom: 10px;
-    color: var(--primary-color);
+/* 4. 【核心】手机横屏适配 (高度 < 500px) */
+@media screen and (orientation: landscape) and (max-height: 500px) {
+    #entertainment-modal .entertainment-container {
+        max-width: 600px;
+        padding: 15px;
+    }
+
+    /* 横屏时改为 4列，一字排开更省空间 */
+    #entertainment-modal .entertainment-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 10px !important;
+    }
+
+    #entertainment-modal .entertainment-item {
+        min-height: 80px;
+        padding: 8px 5px;
+        font-size: 0.9rem;
+    }
+
+    #entertainment-modal .entertainment-item-icon {
+        font-size: 1.8rem;
+    }
 }
 
+/* 5. 【核心】平板/电脑大屏幕横屏 */
+@media screen and (min-width: 900px) and (orientation: landscape) {
+    #entertainment-modal .entertainment-container {
+        max-width: 850px;
+    }
+    #entertainment-modal .entertainment-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+    }
+}
+
+/* === 横屏适配 === */
+@media (min-aspect-ratio: 1/1) and (min-width: 600px) {
+    .entertainment-grid {
+        display: grid !important;  /* ← 新增这行 */
+        grid-template-columns: repeat(2, 1fr) !important;  /* ← 加 !important */
+        max-width: 500px !important;
+        gap: 20px !important;
+        margin: 0 auto !important;
+    }
+    
+    .entertainment-item {
+        padding: 30px 20px !important;
+        font-size: 1.15rem !important;
+    }
+    
+    .entertainment-item-icon {
+        font-size: 2.8rem !important;
+    }
+}
+
+/* 超宽屏（保持不变） */
+@media screen and (min-width: 1024px) and (orientation: landscape) {
+    .entertainment-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+        max-width: 1100px !important;
+    }
+}
 /* ========== 同人文模块 - 全新重构版 ========== */
 #fanfic-module {
     position: fixed;
@@ -3773,6 +3856,891 @@
 .au-back-btn:hover {
     background: rgba(255,255,255,0.3);
 }
+/* 加号按钮样式 */
+.extra-func-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: #fff;
+    color: var(--primary-color);
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.2s;
+    line-height: 1;
+    padding-bottom: 2px;
+}
+
+.extra-func-btn:active {
+    background: #f0f0f0;
+    transform: scale(0.9);
+}
+
+/* 扩展面板样式 */
+.chat-extra-panel {
+    position: fixed;
+    bottom: -300px; /* 初始隐藏在下方 */
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+    z-index: 5000;
+    transition: bottom 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.chat-extra-panel.show {
+    bottom: 0; /* 弹出 */
+}
+
+.extra-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.extra-icon {
+    width: 50px;
+    height: 50px;
+    background: #f5f7f6;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    border: 1px solid #eee;
+    transition: all 0.2s;
+}
+
+.extra-item:active .extra-icon {
+    background: #e8edea;
+    transform: scale(0.9);
+}
+
+.extra-text {
+    font-size: 0.75rem;
+    color: #666;
+}
+/* 控制面板内图片的样式 */
+.extra-icon-img {
+    width: 45px;      /* 图标宽度，可根据需要调整 */
+    height: 45px;     /* 图标高度 */
+    object-fit: contain; /* 确保图片完整显示在方块内 */
+    margin-bottom: 5px;
+    border-radius: 8px; /* 如果图片自带圆角则不需要 */
+}
+
+/* 调整每一个功能项的布局 */
+.extra-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 10px 0;
+}
+
+.extra-item span {
+    font-size: 12px;
+    color: var(--text-sec);
+    margin-top: 4px;
+}
+/* 新增：图片气泡样式 */
+.bubble img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-top: 5px;
+    display: block;
+}
+
+.msg-special-container {
+    margin: 15px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* 改为默认左对齐 */
+    width: 100%;
+}
+
+/* 用户发送的靠右 */
+.msg-special-container.user {
+    align-items: flex-end; /* 添加这行 */
+}
+
+/* AI发送的靠左 */
+.msg-special-container.ai {
+    align-items: flex-start; /* 添加这行 */
+}
+
+/* ========== 绿白古风转账组件 (黛绿色) ========== */
+.msg-special-container {
+    margin: 15px 0;
+    display: flex;
+    width: 100%;
+}
+
+.msg-special-container.user { justify-content: flex-end; }
+.msg-special-container.ai { justify-content: flex-start; }
+
+.transfer-card-v3 {
+    background: #ffffff;
+    border: 1.5px solid #8da399; /* 黛绿色 */
+    border-radius: 8px;
+    width: 220px;
+    padding: 0;
+    box-shadow: 0 4px 12px rgba(141, 163, 153, 0.15);
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.transfer-card-v3:hover { 
+    transform: translateY(-2px); 
+    box-shadow: 0 6px 16px rgba(141, 163, 153, 0.25); 
+}
+
+.transfer-v3-header {
+    background: #f4f7f6;
+    padding: 8px 12px;
+    border-bottom: 1px solid #e8edea;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.transfer-v3-icon {
+    width: 20px; height: 20px;
+    background: #8da399;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 10px;
+}
+
+.transfer-v3-body { padding: 15px 12px; text-align: center; }
+
+.transfer-v3-amount {
+    font-size: 24px;
+    color: #333;
+    font-family: "Kaiti", serif;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.transfer-v3-status { font-size: 11px; color: #8da399; letter-spacing: 1px; }
+
+/* 装饰：图片包装 */
+.image-wrapper-v3 {
+    max-width: 240px;
+    padding: 6px;
+    background: #fff;
+    border: 1px solid #e8edea;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+.image-wrapper-v3 img { width: 100%; border-radius: 2px; display: block; }
+
+
+/* ========== 横屏适配优化 ========== */
+@media (min-width: 1024px) and (max-height: 600px) {
+    /* 横屏模式下的调整 */
+    
+    /* 主界面横屏 */
+    #home-screen {
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 40px;
+        gap: 40px;
+    }
+    
+    .home-title-box {
+        order: 1;
+        margin-bottom: 0;
+    }
+    
+    .home-menu {
+        order: 2;
+        max-width: 250px;
+    }
+    
+    /* 聊天界面横屏 */
+    main {
+        flex-direction: row;
+    }
+    
+    #history-panel {
+        flex: 1;
+        padding: 20px;
+        max-height: calc(100vh - 60px);
+    }
+    
+    #control-panel {
+        width: 350px;
+        border-left: 1px solid var(--border);
+        border-top: none;
+        max-height: calc(100vh - 60px);
+        overflow-y: auto;
+    }
+    
+    /* 暗卫聊天横屏 */
+    #guard-chat-modal-online,
+    #guard-chat-modal-offline {
+        flex-direction: row;
+    }
+    
+    .chat-history-online,
+    .chat-history-offline {
+        flex: 1;
+        max-height: calc(100vh - 80px);
+    }
+    
+    .chat-input-area {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        width: auto;
+        flex-direction: column;
+    }
+    
+    /* 同人文阅读器横屏 */
+    .fanfic-reader-body {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    
+    .fanfic-reader-footer {
+        flex-direction: row;
+        justify-content: center;
+        gap: 20px;
+    }
+    
+    .fanfic-nav-btn {
+        max-width: 150px;
+    }
+}
+
+/* 平板横屏 */
+@media (min-width: 768px) and (max-height: 500px) {
+    body {
+        font-size: 14px;
+    }
+    
+    header {
+        flex: 0 0 45px;
+        padding: 0 10px;
+    }
+    
+    #control-panel {
+        width: 300px;
+    }
+    
+    .action-grid {
+        max-height: 150px;
+    }
+}
+/* --- 个人档案专属：关系网美化 --- */
+#guard-relations-section {
+    border-top: 1px dashed var(--border);
+    padding-top: 15px;
+    margin-top: 20px;
+}
+
+.rel-mini-card {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(90deg, rgba(141, 163, 153, 0.08) 0%, rgba(255, 255, 255, 0) 100%);
+    border-left: 3px solid var(--primary-light);
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.rel-mini-card:hover {
+    background: rgba(141, 163, 153, 0.15);
+    transform: translateX(8px);
+    border-left-color: var(--primary-color);
+}
+
+.rel-avatar-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--primary-light);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: bold;
+    margin-right: 12px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.rel-info-box {
+    flex: 1;
+}
+
+.rel-name-text {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: var(--primary-dark);
+}
+
+.rel-tag-text {
+    font-size: 0.75rem;
+    color: #888;
+    margin-left: 8px;
+    background: rgba(255,255,255,0.6);
+    padding: 1px 6px;
+    border-radius: 4px;
+}
+/* ========== 黛绿月白·日记系统（修复版） ========== */
+#diary-modal .editor-container, #diary-history-modal .editor-container {
+    max-width: 400px;
+    background: #ffffff !important;
+    border: 1px solid #d8e0d8 !important;
+    border-top: 6px solid #8da399 !important;
+    border-radius: 16px;
+    padding: 30px;
+    position: relative;
+}
+
+#diary-title {
+    font-family: var(--font-serif);
+    color: #8da399 !important;
+    text-align: center;
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #f0f4f2 !important;
+    padding-bottom: 10px;
+}
+
+/* 核心修复：white-space 保证换行 */
+#diary-content {
+    font-family: var(--font-serif);
+    color: #5d6e65 !important;
+    line-height: 1.8;
+    white-space: pre-wrap !important; 
+    word-wrap: break-word;
+    min-height: 200px;
+}
+
+#diary-date {
+    text-align: right;
+    color: #a8c4b8 !important;
+    font-size: 0.85rem;
+    margin-top: 15px;
+}
+
+/* 往日回想按钮 */
+.diary-top-btn {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    background: #f4f7f6 !important;
+    color: #8da399 !important;
+    border: 1px solid #d8e0d8 !important;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    z-index: 10;
+}
+
+/* 下方按钮区 */
+#diary-action-area {
+    margin-top: 20px;
+}
+
+.diary-action-btn {
+    width: 100%;
+    background: #8da399 !important;
+    color: #ffffff !important;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    font-family: var(--font-serif);
+    cursor: pointer;
+    margin-bottom: 8px;
+}
+
+/* 历史列表 */
+.diary-history-item {
+    background: #ffffff !important;
+    border: 1px solid #eef2ef !important;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+@media (min-aspect-ratio: 16/9) {
+    .pigeon-paper {
+        max-width: 650px !important; /* 横屏时信笺更宽 */
+        display: flex;
+        flex-direction: column;
+        padding: 40px 60px !important;
+    }
+}
+/* ========== 🌿 黛绿·大画幅流体论坛 (最终奢华版) ========== */
+
+/* 1. 基础容器：彻底铺满，不留一丝缝隙 */
+#forum-modal {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: #f4f6f5 !important; 
+    z-index: 9999 !important;
+    display: none;
+    flex-direction: column;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden;
+}
+
+/* 2. 顶部导航：磨砂悬浮感 */
+.forum-topbar {
+    flex: 0 0 60px;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    border-bottom: 1px solid rgba(123, 153, 135, 0.1);
+    z-index: 100;
+}
+
+.forum-topbar-title {
+    flex: 1;
+    text-align: center;
+    font-family: "Kaiti", serif;
+    font-size: 1.25rem;
+    font-weight: bold;
+    letter-spacing: 6px;
+    color: #4a5f53;
+}
+
+.forum-action-btn {
+    background: #7b9987;
+    color: white;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.forum-action-btn:active { transform: scale(0.9); }
+
+/* 3. 响应式主布局 */
+.forum-main {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+    background: transparent;
+}
+
+/* 侧边栏：仅在横屏显示，竖屏自动隐藏 */
+.forum-sidebar {
+    width: 220px;
+    background: rgba(255, 255, 255, 0.3);
+    border-right: 1px solid rgba(123, 153, 135, 0.05);
+    display: flex;
+    flex-direction: column;
+    padding: 20px 10px;
+    gap: 8px;
+}
+
+/* 帖子展示区 */
+.forum-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* 筛选标签：像流动的云 */
+.forum-filter-bar {
+    padding: 15px 20px;
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+.forum-filter-bar::-webkit-scrollbar { display: none; }
+
+.filter-tag {
+    padding: 7px 18px;
+    background: white;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: #8ea196;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: 0.3s;
+    border: 1px solid rgba(0,0,0,0.03);
+}
+.filter-tag.active {
+    background: #7b9987;
+    color: white;
+    box-shadow: 0 4px 12px rgba(123, 153, 135, 0.2);
+}
+
+/* 帖子卡片网格：横屏自动变多列 */
+.forum-posts-grid {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px 20px 40px 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+    align-content: start;
+}
+
+.forum-post-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 22px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+.forum-post-card:hover {
+    transform: translateY(-4px);
+    border-color: #7b9987;
+    box-shadow: 0 10px 25px rgba(123, 153, 135, 0.1);
+}
+
+.author-avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: #f0f4f2; color: #7b9987;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: bold; margin-right: 10px;
+}
+
+.post-title {
+    font-size: 1.1rem; font-weight: bold; color: #2c3e34;
+    margin: 12px 0 8px 0; font-family: "Kaiti", serif;
+}
+
+.post-summary {
+    font-size: 0.9rem; color: #66756c; line-height: 1.7;
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+
+.post-footer {
+    margin-top: 15px; padding-top: 15px;
+    border-top: 1px dashed #f0f2f1;
+    display: flex; gap: 15px; font-size: 0.8rem; color: #aeb8b2;
+}
+
+/* 4. 详情页视图：如同打开一卷卷轴 */
+#forum-detail-view {
+    position: absolute;
+    inset: 0;
+    background: #f4f6f5;
+    z-index: 200;
+    display: none;
+    flex-direction: column;
+    animation: forumSlideIn 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+@keyframes forumSlideIn {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+}
+
+.detail-scroll {
+    flex: 1; overflow-y: auto; padding: 30px 15px;
+}
+
+.detail-container-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: 35px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+}
+
+.detail-content {
+    font-size: 1.05rem; line-height: 2; color: #3a453e;
+    text-align: justify; margin: 25px 0;
+}
+
+.reply-item {
+    padding: 15px; background: #f9fbfb;
+    border-radius: 10px; margin-bottom: 10px;
+    border-left: 3px solid #e8edea;
+}
+
+/* 详情页输入框 */
+.forum-input-bar {
+    background: white;
+    padding: 15px 20px;
+    display: flex; gap: 12px;
+    border-top: 1px solid #eee;
+}
+
+.forum-input-bar input {
+    flex: 1; border: 1px solid #e8edea;
+    padding: 10px 18px; border-radius: 25px; outline: none;
+}
+
+/* === 5. 屏幕适配核心 === */
+@media (max-aspect-ratio: 1/1) {
+    /* 竖屏：隐藏侧边栏，帖子拉满 */
+    .forum-sidebar { display: none !important; }
+    .detail-container-inner { padding: 20px; border-radius: 0; }
+    .forum-posts-grid { grid-template-columns: 1fr; padding: 10px 15px; }
+}
+
+@media (min-aspect-ratio: 1/1) {
+    /* 横屏：显示侧边栏，帖子双列/三列 */
+    .forum-sidebar { width: 220px; display: flex; }
+    .forum-posts-grid { grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); }
+}
+
+/* 去除所有莫名其妙的旧按钮样式干扰 */
+.forum-action-btn, .filter-tag, .forum-post-card {
+    -webkit-tap-highlight-color: transparent;
+/* --- 头像与功能按钮高级感增强 --- */
+.author-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: bold; color: white;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    box-shadow: inset 0 0 10px rgba(255,255,255,0.2);
+    font-family: var(--font-serif);
+    flex-shrink: 0;
+}
+
+/* 按钮微调：增加一点呼吸感 */
+.post-delete-btn {
+    padding: 4px 8px; font-size: 0.75rem;
+    color: #c77; background: transparent;
+    border: 1px solid rgba(204, 119, 119, 0.2);
+    border-radius: 4px; cursor: pointer; transition: 0.3s;
+}
+.post-delete-btn:hover { background: #fee; border-color: #c77; }
+
+.regen-replies-btn {
+    font-size: 0.8rem; color: #7b9987;
+    cursor: pointer; display: flex; align-items: center; gap: 4px;
+    padding: 5px 12px; border: 1px solid rgba(123, 153, 135, 0.2);
+    border-radius: 20px; transition: 0.3s;
+}
+.regen-replies-btn:hover { background: #f0f5f2; border-color: #7b9987; }
+
+/* ========== 娱乐系统入口面板 - 修复版 ========== */
+#entertainment-modal .entertainment-container {
+    width: 100%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: #ffffff;
+    border: 2px solid var(--primary-color);
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+}
+
+#entertainment-modal .entertainment-container h2 {
+    text-align: center;
+    font-family: var(--font-serif);
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+/* 默认竖屏：2列布局 */
+#entertainment-modal .entertainment-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+#entertainment-modal .entertainment-item {
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 25px 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    color: var(--primary-dark);
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+#entertainment-modal .entertainment-item:hover {
+    border-color: var(--primary-color);
+    background: rgba(141, 163, 153, 0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(141, 163, 153, 0.3);
+}
+
+#entertainment-modal .entertainment-item-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    line-height: 1;
+}
+
+/* ===== 横屏适配：关键修复 ===== */
+@media screen and (orientation: landscape) and (min-width: 600px) {
+    #entertainment-modal .entertainment-container {
+        max-width: 700px;
+    }
+    
+    #entertainment-modal .entertainment-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        max-width: 500px;
+        margin: 0 auto 20px auto;
+        gap: 20px;
+    }
+    
+    #entertainment-modal .entertainment-item {
+        aspect-ratio: auto;
+        height: 120px;
+        padding: 20px;
+    }
+}
+
+/* 超宽屏幕：4列一字排开 */
+@media screen and (min-width: 1024px) and (orientation: landscape) {
+    #entertainment-modal .entertainment-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+        max-width: 900px !important;
+    }
+    
+    #entertainment-modal .entertainment-item {
+        height: 140px;
+    }
+}
+/* 论坛空状态/加载状态居中样式 */
+.forum-empty {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 20px;
+    color: #888;
+}
+
+.forum-empty-icon {
+    font-size: 3rem;
+    color: var(--primary-light);
+    margin-bottom: 15px;
+}
+
+/* 论坛竖屏优化 */
+@media (max-aspect-ratio: 1/1) {
+    .forum-posts-grid {
+        padding: 10px 15px !important;
+    }
+    
+    .forum-post-card {
+        padding: 15px;
+    }
+    
+    .post-title {
+        font-size: 1rem;
+    }
+    
+    .post-summary {
+        font-size: 0.85rem;
+        -webkit-line-clamp: 2;
+    }
+}
+/* 转发帖子卡片样式 */
+.forward-card {
+    background: #fffefb;
+    border: 1px solid #8da399;
+    border-radius: 8px;
+    width: 250px;
+    padding: 0;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    font-family: var(--font-serif);
+}
+
+.forward-card-header {
+    background: #8da399;
+    color: white;
+    padding: 6px 12px;
+    font-size: 0.75rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.forward-card-body {
+    padding: 12px;
+    border-bottom: 1px dashed #e8edea;
+}
+
+.forward-card-title {
+    font-weight: bold;
+    font-size: 0.95rem;
+    color: #333;
+    margin-bottom: 5px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.forward-card-content {
+    font-size: 0.8rem;
+    color: #666;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.forward-card-footer {
+    padding: 10px 12px;
+    background: #f4f7f6;
+}
+
+.forward-comment-label {
+    font-size: 0.7rem;
+    color: #8da399;
+    margin-bottom: 4px;
+    font-weight: bold;
+}
+
+.forward-comment-text {
+    font-size: 0.85rem;
+    color: #4a5f53;
+    line-height: 1.4;
+}
 </style>
 </head>
 <body>
@@ -3912,6 +4880,11 @@
         </div>
         
         <div class="input-group">
+    <label>飞鸽传书自动触发 (分钟, 0为关闭)</label>
+    <input type="number" id="pigeon-interval" min="0" value="0" placeholder="建议设置 5-10 分钟">
+</div>
+        
+        <div class="input-group">
             <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
                 <input type="checkbox" id="enable-time-awareness" style="width: 18px; height: 18px;">
                 <span>启用现实时间感知 (AI会根据现实时间描写对应时辰氛围)</span>
@@ -4039,6 +5012,17 @@
             <h2 id="user-panel-title">昭宁长公主</h2>
             <div style="font-size: 0.85rem; color: #888;">当朝最受宠的长公主殿下</div>
         </div>
+        
+<div style="display: flex; gap: 10px; justify-content: center; margin-top: 10px;">
+    <!-- 每日签到：低饱和黛绿色 -->
+    <button onclick="openSignInPanel()" style="flex: 1; padding: 10px; background: #8da399; color: white; border: none; border-radius: 20px; cursor: pointer; font-size: 0.85rem; box-shadow: 0 2px 8px rgba(141, 163, 153, 0.2); font-family: var(--font-serif);">
+        ◆ 每日签到
+    </button>
+    <!-- 随机翻牌：月白色底+黛绿边框 -->
+    <button onclick="drawRandomGuard()" style="flex: 1; padding: 10px; background: #ffffff; color: #8da399; border: 1px solid #8da399; border-radius: 20px; cursor: pointer; font-size: 0.85rem; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); font-family: var(--font-serif);">
+        ✧ 随机翻牌
+    </button>
+</div>
 
         <div class="user-stats-grid">
             <div class="stat-item editable" onclick="editStat('charm')">
@@ -4279,7 +5263,9 @@
             <button class="guard-action-btn edit" onclick="openGuardEditModal()">修缮档案</button>
             <button class="guard-action-btn regen" onclick="regenGuardProfile()">重新生成</button>
             <button class="guard-action-btn settings" onclick="openGuardSettings()">独立设置</button>
+            <button class="guard-action-btn edit" onclick="openRelationshipPanelForGuard()">查看关系网</button>
             <button class="guard-action-btn delete" onclick="deleteCurrentGuard()">删除暗卫</button>
+            <button class="guard-action-btn edit" onclick="orderGuardToPost()">❖ 命其发帖</button>
             <button class="guard-action-btn close" onclick="closeGuardDetail()">返回图鉴</button>
         </div>
     </div>
@@ -4307,6 +5293,7 @@
         <button class="close-btn" onclick="closeGuardChat('online')">结束传音</button>
     </div>
     <div class="chat-history-online" id="chat-history-online"></div>
+    <button class="extra-func-btn" onclick="toggleExtraPanel(event)">+</button>
     <div class="chat-input-area">
         <button class="reply-btn" id="reply-btn-online" onclick="triggerGuardAIReply('online')">◆</button>
         <div class="input-wrapper">
@@ -4323,7 +5310,10 @@
         <button class="close-btn" onclick="closeGuardChat('offline')">[ 退下 ]</button>
     </div>
     <div class="chat-history-offline" id="chat-history-offline"></div>
+    
+    <!-- 👇👇👇 修改后的输入框区域 👇👇👇 -->
     <div class="chat-input-area">
+        <button class="extra-func-btn" onclick="toggleExtraPanel(event)">+</button>
         <button class="reply-btn" id="reply-btn-offline" onclick="triggerGuardAIReply('offline')">◆</button>
         <div class="input-wrapper">
             <textarea class="chat-input" id="chat-input-offline" rows="1" placeholder="殿下吩咐..." onkeydown="if(event.key==='Enter' && !event.shiftKey) {event.preventDefault(); sendGuardUserMessage('offline');}"></textarea>
@@ -4408,6 +5398,17 @@
     <div class="entertainment-item-icon">●</div>
     <div>平行世界剧场</div>
 </div>
+
+<div class="entertainment-item" onclick="openDivinationModal()">
+    <div class="entertainment-item-icon">☯</div>
+    <div>太仪灵签</div>
+</div>
+<!-- 找到玄夜论坛入口 -->
+<div class="entertainment-item" onclick="openForumModal()">
+    <div class="entertainment-item-icon">■</div>
+    <div>玄夜论坛</div>
+</div>
+
 
             <!-- 预留位置：未来可添加其他娱乐模块 -->
             <div class="entertainment-item" onclick="showToast('敬请期待...')" style="opacity: 0.5;">
@@ -4684,7 +5685,206 @@
 
 <div id="au-context-menu" class="au-context-menu">
     <div class="au-menu-item" onclick="auRegenMessage()">● 重回此景</div>
+    <div class="au-menu-item" onclick="auEditMessage()">● 编辑内容</div>
     <div class="au-menu-item danger" onclick="auDeleteMessage()">● 删除消息</div>
+</div>
+
+<!-- 找到这个面板 -->
+<div id="chat-extra-panel" class="chat-extra-panel">
+    <div class="extra-item" onclick="handleExtraFunc('photo')">
+        <img src="https://img.heliar.top/file/1769932522397_无标题63_20260201155446.png" class="extra-icon-img">
+        <span>发送图片</span>
+    </div>
+    <div class="extra-item" onclick="handleExtraFunc('transfer')">
+        <img src="https://img.heliar.top/file/1769932522397_无标题63_20260201155446.png" class="extra-icon-img">
+        <span>转账</span>
+    </div>
+    <div class="extra-item" onclick="handleExtraFunc('diary')">
+        <img src="https://img.heliar.top/file/1769932522397_无标题63_20260201155446.png" class="extra-icon-img">
+        <span>暗卫日记</span>
+    </div>
+    <div class="extra-item" onclick="handleExtraFunc('sleep')">
+        <img src="https://img.heliar.top/file/1769932522397_无标题63_20260201155446.png" class="extra-icon-img">
+        <span>侍寝面板</span>
+    </div>
+    <div class="extra-item" onclick="handleExtraFunc('relation')">
+        <img src="https://img.heliar.top/file/1769932522397_无标题63_20260201155446.png" class="extra-icon-img">
+        <span>人际关系</span>
+    </div>
+</div>
+<input type="file" id="chat-image-handler" style="display:none;" accept="image/*" onchange="directSendImage(this)">
+<!-- 新增：AU剧场编辑弹窗 -->
+<div id="au-edit-modal" class="modal-overlay" style="z-index: 4200;">
+    <div class="editor-container">
+        <h2>修订剧场记录</h2>
+        <div class="input-group">
+            <textarea class="setup-textarea" id="au-edit-text" style="min-height: 150px; font-size: 1rem; line-height: 1.6;"></textarea>
+        </div>
+        <div class="editor-actions" style="display:flex; gap:10px;">
+            <button class="btn-primary" style="flex:1" onclick="auSaveEdit()">确认修改</button>
+            <button class="btn-danger" style="flex:1" onclick="closeModal('au-edit-modal')">取消</button>
+        </div>
+    </div>
+</div>
+<!-- 简易文本展示面板（用于查看渊源） -->
+<div id="relation-detail-modal" class="modal-overlay" style="z-index: 5000;">
+    <div class="editor-container" style="max-width: 450px; background: #fffefb;">
+        <h2 id="rel-detail-title" style="font-family: var(--font-serif); color: var(--primary-dark);">羁绊渊源</h2>
+        <div id="rel-detail-content" class="bio-text" style="max-height: 350px; overflow-y: auto; line-height: 1.8; margin-bottom: 20px; white-space: pre-wrap;">
+            <!-- 内容由 JS 填充 -->
+        </div>
+        <button class="btn-primary" style="width: 100%;" onclick="closeModal('relation-detail-modal')">知晓了</button>
+    </div>
+</div> 
+<!-- 暗卫日记面板 - 修复版 -->
+<div id="diary-modal" class="modal-overlay" style="z-index: 6000;">
+    <div class="editor-container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+            <h2 id="diary-title" style="margin: 0; flex: 1;">暗卫私密日记</h2>
+            <button class="diary-top-btn" onclick="showDiaryHistory(state.currentGuard?.id)" style="margin: 0;">往日回想</button>
+        </div>
+        
+        <div id="diary-content" style="min-height: 200px; max-height: 400px; overflow-y: auto; padding: 15px; background: #fffefb; border-radius: 8px; border: 1px solid #d8e0d8; margin-bottom: 15px; white-space: pre-wrap; line-height: 1.8; font-family: var(--font-serif); color: #5d6e65;">
+            <!-- 内容由 JS 填充 -->
+        </div>
+        
+        <div id="diary-date" style="text-align: right; color: #a8c4b8; font-size: 0.85rem; margin-bottom: 15px; font-family: var(--font-serif);">
+            <!-- 日期由 JS 填充 -->
+        </div>
+        
+        <div id="diary-action-area" style="display: flex; gap: 10px;">
+            <button class="diary-action-btn" style="flex: 1; background: var(--primary-color); color: white; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-family: var(--font-serif);" onclick="regenCurrentDiary(state.currentGuard?.id)">↻ 重写此篇</button>
+            <button class="diary-action-btn" style="flex: 1; background: #f5f5f5; color: #888; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-family: var(--font-serif);" onclick="closeModal('diary-modal')">合上卷轴</button>
+        </div>
+    </div>
+</div>
+<!-- 转账操作弹窗 -->
+<div id="transfer-action-modal" class="modal-overlay" style="z-index: 7000;">
+    <div class="editor-container" style="max-width: 300px; text-align: center;">
+        <h2 style="font-size: 1.1rem; border: none; margin-bottom: 10px;">处理这笔银子</h2>
+        <p id="transfer-modal-info" style="font-size: 0.9rem; color: #666; margin-bottom: 20px;"></p>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+            <button class="btn-primary" id="btn-receive-money">收入私库</button>
+            <button class="btn-danger" id="btn-refund-money" style="background: #eee; color: #666;">原路退回</button>
+            <button class="btn-primary" style="background: #ccc;" onclick="closeModal('transfer-action-modal')">暂不处理</button>
+        </div>
+    </div>
+</div>
+<!-- 占星台弹窗修复版 -->
+<div id="divination-modal" class="modal-overlay">
+    <div class="editor-container" style="max-width: 450px;">
+        <!-- 头部：标题与关闭叉号 -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+            <h2 style="font-family: var(--font-serif); color: #8da399; text-align: center; flex: 1; margin: 0;">◈ 占星台 · 问卜天机 ◈</h2>
+            <button class="header-btn" onclick="closeModal('divination-modal')" style="padding: 5px 10px; font-size: 1rem;">✕</button>
+        </div>        
+        
+        <!-- 主界面：输入与按钮 -->
+        <div id="divination-content">
+            <p style="text-align:center; color: #666; margin-bottom: 15px;">公主殿下，请在心中默念所求之事</p>
+            <input type="text" id="divination-query" class="input-full" placeholder="例如：今日良辰？" style="margin-bottom: 15px;">
+            <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                <button class="btn-primary" style="flex: 1; background: #bdc3c7;" onclick="closeModal('divination-modal')">暂不问卜</button>
+                <button class="btn-primary" style="flex: 1;" onclick="startDivination()">掷筊起卦</button>
+            </div>
+            <!-- 往日记录按钮 -->
+            <button class="btn-primary" style="width: 100%; background: #a8c4b8;" onclick="showDivinationHistory()">
+                ◇ 往日天机记录
+            </button>
+        </div>
+
+        <!-- 动画加载界面 -->
+        <div id="divination-animation" style="padding: 40px; display: none; text-align: center;">
+            <div class="fanfic-loading-spinner" style="margin: 0 auto;"></div>
+            <p style="margin-top: 15px; font-family: var(--font-serif); color: #8da399;">正在勾通星辰，推演因果...</p>
+        </div>
+
+        <!-- 结果展示界面 -->
+        <div id="divination-result" style="display: none; padding: 15px; text-align: left;">
+            <div id="divi-title" style="font-family: var(--font-serif); font-weight: bold; font-size: 1.2rem; color: #8da399; text-align: center; margin-bottom: 10px;"></div>
+            <div id="divi-poem" style="font-family: var(--font-serif); text-align: center; font-style: italic; color: #333; margin-bottom: 15px; line-height: 1.8;"></div>
+            <div id="divi-desc" style="font-size: 0.9rem; line-height: 1.6; color: #555; background: #f4f7f6; padding: 10px; border-radius: 8px;"></div>
+            <div id="divi-stat" style="margin-top: 15px; font-size: 0.8rem; color: var(--primary-color); font-weight: bold; text-align: center;"></div>
+        </div>
+
+        <!-- 历史记录列表界面 -->
+        <div id="divination-history" style="display: none; padding-top: 10px;">
+            <div id="divi-history-list" style="max-height: 400px; overflow-y: auto; margin-bottom: 15px;">
+                <!-- 历史项动态插入 -->
+            </div>
+            <button class="btn-primary" style="width: 100%; background: #a8c4b8;" onclick="backToDivinationMain()">◇ 返回</button>
+        </div>
+    </div>
+</div>
+
+<div id="forum-modal" class="modal-overlay">
+    <div class="forum-topbar">
+        <button class="forum-action-btn" style="background:#eee; color:#666;" onclick="closeForum()">退出</button>
+        <div class="forum-topbar-title">◈ 玄夜秘谈 BBS ◈</div>
+        <button class="forum-action-btn" style="background:#6e827a;" onclick="openForumSettings()">⚙ 设定</button>
+        <button class="forum-action-btn" onclick="showCreatePostPrompt()">+ 发布</button>
+    </div>
+
+    <div class="forum-main">
+        <!-- 侧边栏：仅在横屏有用 -->
+        <div class="forum-sidebar">
+            <div style="font-weight:bold; color:#7b9987; margin-bottom:15px; padding-left:10px;">◎ 热门板块</div>
+            <div class="filter-tag active" style="border-radius:8px;" onclick="filterForum('全部')">全部内容</div>
+            <div class="filter-tag" style="border-radius:8px;" onclick="filterForum('闲聊')">暗卫闲谈</div>
+            <div class="filter-tag" style="border-radius:8px;" onclick="filterForum('吐槽')">任务吐槽</div>
+            <div class="filter-tag" style="border-radius:8px;" onclick="filterForum('攻略')">侍奉心得</div>
+            <hr style="opacity:0.1; margin:10px 0;">
+            <button class="forum-action-btn" style="width:100%;" onclick="refreshForum()">刷新传音波段</button>
+        </div>
+
+        <div class="forum-content">
+            <!-- 竖屏时显示的滚动标签栏 -->
+            <div class="forum-filter-bar">
+                <div class="filter-tag active" onclick="filterForum('全部')">全部</div>
+                <div class="filter-tag" onclick="filterForum('闲聊')">闲聊</div>
+                <div class="filter-tag" onclick="filterForum('吐槽')">吐槽</div>
+                <div class="filter-tag" onclick="filterForum('攻略')">攻略</div>
+                <div class="filter-tag" onclick="refreshForum()">↻ 刷新</div>
+            </div>
+
+            <div class="forum-posts-grid" id="forum-posts-grid">
+                <!-- 动态帖子 -->
+            </div>
+        </div>
+    </div>
+
+<!-- 详情视图 -->
+<div id="forum-detail-view">
+    <div class="forum-topbar">
+        <button class="forum-action-btn" style="background:#eee; color:#666;" onclick="closeForumDetail()">返回</button>
+        <div class="forum-topbar-title" id="detail-nav-title">正文</div>
+        <button class="forum-action-btn" onclick="likePost()">赏</button>
+        <button class="forum-action-btn" style="background:#8da399;" onclick="forwardCurrentPost()">✉ 转发</button>
+    </div>
+    <div class="detail-scroll" id="detail-scroll">
+        <!-- 动态生成 -->
+    </div>
+    <div class="forum-input-bar">
+        <input type="text" id="forum-reply-input" placeholder="写下匿名见解...">
+        <button class="forum-action-btn" onclick="submitForumReply()">发送</button>
+    </div>
+</div>
+
+<!-- 论坛设定弹窗 -->
+<div id="forum-settings-modal" class="modal-overlay" style="z-index: 10000;">
+    <div class="editor-container" style="max-width: 450px;">
+        <h2>玄夜论坛 · 规则重塑</h2>
+        <div class="input-group">
+            <label>论坛背景设定 (决定暗卫们聊什么主题)</label>
+            <textarea id="forum-wv-input" class="setup-textarea" placeholder="例如：其实大家都是现代穿越过去的、或者这里是大型相亲现场..."></textarea>
+        </div>
+        <div class="input-group">
+            <label>风格要求 (决定说话语气)</label>
+            <input type="text" id="forum-req-input" class="input-full" placeholder="例如：要傲娇风格、要很多修罗场...">
+        </div>
+        <button class="btn-primary" style="width:100%;" onclick="saveForumSettings()">定契 (保存)</button>
+        <button class="btn-danger" style="width:100%; margin-top:10px; background:#ccc;" onclick="closeModal('forum-settings-modal')">取消</button>
+    </div>
 </div>
 <script>
     // ========== 全局状态 ==========
@@ -4728,7 +5928,9 @@
         achievements: [],
         eroticMode: false,
         eroticOrientation: 'gb',
-        eroticXP: []
+        eroticXP: [],
+        forumWorldview: '这是玄夜卫内部的秘密论坛。', // 默认背景
+forumRequirements: '语气要古风，有梗，有反差感。', // 默认要求
     };
 
     let currentEditingWbId = null;
@@ -4815,6 +6017,8 @@
                     state.eroticOrientation = state.eroticOrientation || 'gb';
                     state.eroticXP = state.eroticXP || [];
                     state.userStats.avatar = state.userStats.avatar || '';
+                    state.pigeonInterval = parseInt(document.getElementById('pigeon-interval').value) || 0;
+startPigeonTimer(); 
 
                     
                     if (state.userStats) {
@@ -4837,7 +6041,505 @@
             request.onerror = () => reject(request.error);
         });
     }
+// ========== 签到系统 ==========
+let signInState = {
+    lastSignInDate: null,
+    consecutiveDays: 0,
+    totalDays: 0,
+    history: [] // {date, event, rewards}
+};
 
+// ========== 交互式签到系统 ==========
+function openSignInPanel() {
+    const today = new Date().toDateString();
+    // 测试模式：直接设为 true。正式发布请改回 signInState.lastSignInDate !== today
+    const canSignIn = signInState.lastSignInDate !== today;
+
+    if (!canSignIn) {
+        showToast('今日已安稳度过，明日再来。');
+        return;
+    }
+
+    const overlay = document.createElement('div');
+    overlay.id = 'signin-overlay';
+    overlay.style.cssText = `
+        position: fixed; inset: 0; z-index: 5000;
+        background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+        display: flex; align-items: center; justify-content: center; padding: 20px;
+    `;
+    
+    overlay.innerHTML = `
+        <div id="signin-card" style="max-width: 500px; width: 100%; background: #fffefb; border: 2px solid #dcd3c0; border-radius: 12px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative;">
+            <div style="font-family: var(--font-serif); font-size: 1.4rem; color: #5d6e65; text-align: center; margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+                ◈ 晨间偶遇 ◈
+            </div>
+            <div id="signin-story" style="font-size: 1rem; line-height: 1.8; color: #333; margin-bottom: 25px; min-height: 100px; text-align: justify;">
+                正在观测宫中动向...
+                <div class="fanfic-loading-spinner" style="margin: 20px auto;"></div>
+            </div>
+            <div id="signin-choices" style="display: flex; flex-direction: column; gap: 10px;">
+                <!-- 选项会在这里生成 -->
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(overlay);
+    startSignInStory();
+}
+
+async function startSignInStory() {
+    const storyEl = document.getElementById('signin-story');
+    const choicesEl = document.getElementById('signin-choices');
+    
+    // 获取当前在场暗卫
+    const presentGuards = (state.presentGuards || [])
+        .map(id => state.guards.find(g => g.id === id))
+        .filter(g => g);
+    const guardName = presentGuards.length > 0 ? presentGuards[0].name : "一名暗卫";
+
+    const prompt = `你现在是《玄夜卫》游戏的每日随机事件发生器。
+请为长公主${state.princess.name}生成一个晨间随机互动事件的【开场】。
+
+【涉及暗卫】：${guardName}
+【场景】：宫中花园、寝宫、或练武场（随机）
+
+要求：
+1. 文笔唯美，古风沉浸感。
+2. 描述一个具体的互动瞬间（如：他在树下练剑看到你、他为你递上密信、他在雨中罚跪等）。
+3. 提供3个简短的互动选项。
+
+输出格式必须是JSON：
+{
+  "story": "剧情描述文本...",
+  "choices": ["选项1文本", "选项2文本", "选项3文本"]
+}`;
+
+    try {
+        const response = await callAI([{ role: 'user', content: prompt }], 0.8);
+        const data = JSON.parse(response.replace(/```json|```/g, '').trim());
+        
+        storyEl.innerText = data.story;
+        
+        choicesEl.innerHTML = '';
+        data.choices.forEach((choice, idx) => {
+            const btn = document.createElement('button');
+            btn.style.cssText = `
+                padding: 12px; border: 1px solid #dcd3c0; background: #fff; 
+                color: #5d6e65; border-radius: 8px; cursor: pointer; 
+                font-family: var(--font-serif); transition: all 0.2s;
+                text-align: left;
+            `;
+            btn.innerText = `◇ ${choice}`;
+            btn.onmouseenter = () => btn.style.background = "#f5f7f5";
+            btn.onmouseleave = () => btn.style.background = "#fff";
+            btn.onclick = () => handleSignInChoice(choice, data.story);
+            choicesEl.appendChild(btn);
+        });
+    } catch (e) {
+        storyEl.innerText = "推演失败，天机紊乱。直接领取赏赐吧。";
+        // 兜底按钮
+        const btn = document.createElement('button');
+        btn.innerText = "领取赏赐";
+        btn.onclick = () => closeSignIn();
+        choicesEl.appendChild(btn);
+    }
+}
+
+async function handleSignInChoice(choice, originalStory) {
+    const storyEl = document.getElementById('signin-story');
+    const choicesEl = document.getElementById('signin-choices');
+    
+    // 获取当前互动的暗卫对象（为了存入他的个人剧情）
+    const presentGuards = (state.presentGuards || [])
+        .map(id => state.guards.find(g => g.id === id))
+        .filter(g => g);
+    const targetGuard = presentGuards.length > 0 ? presentGuards[0] : null;
+
+    choicesEl.innerHTML = '<div style="text-align:center; color:#888;">正在记录你的抉择...</div>';
+
+    const prompt = `你现在是《玄夜卫》游戏的剧情记录员。
+之前的开场是：${originalStory}
+长公主选择了：${choice}
+
+请生成：
+1. 剧情结局（由于选择而产生的互动）。
+2. 根据剧情给予属性奖励（魅力/权势/智谋/声望 选1-2项，数值1-5）。
+
+输出JSON:
+{
+  "ending": "剧情结局文本...",
+  "rewards": {"charm": 0, "power": 0, "wisdom": 0, "fame": 0} 
+}`;
+
+    try {
+        const response = await callAI([{ role: 'user', content: prompt }], 0.8);
+        const data = JSON.parse(response.replace(/```json|```/g, '').trim());
+        
+        // 1. 构造要存入历史的完整文本
+        const fullEventText = `【晨间记事】${originalStory}\n公主选择了：${choice}\n结局：${data.ending}`;
+
+        // 2. 存入全局剧情日志 (state.storyLog)
+        if (!state.storyLog) state.storyLog = [];
+        state.storyLog.push({
+            date: new Date().toLocaleString(),
+            type: 'daily_event',
+            content: fullEventText
+        });
+
+        // 3. 存入暗卫的个人记忆 (如果是跟特定暗卫互动)
+        if (targetGuard) {
+            if (!targetGuard.interactionHistory) targetGuard.interactionHistory = [];
+            targetGuard.interactionHistory.push({
+                date: new Date().toLocaleDateString(),
+                event: `在晨间互动中，公主对我：${choice}。结果：${data.ending}`,
+                impact: data.rewards
+            });
+            // 顺便增加一点好感度
+            targetGuard.favorability = (targetGuard.favorability || 0) + 2;
+        }
+
+        // 4. 显示结果界面 (UI)
+        storyEl.innerHTML = `
+            <div style="color: #888; font-size: 0.9rem; margin-bottom: 10px;">“${choice}”</div>
+            <div>${data.ending}</div>
+            <div style="margin-top: 15px; font-size: 0.8rem; color: #8d4b4b; border-top: 1px dashed #ddd; padding-top: 10px;">
+                此事已记入《玄夜密卷》与暗卫羁绊中
+            </div>
+            <div style="margin-top: 15px; padding: 10px; background: rgba(141, 163, 153, 0.1); border-radius: 8px;">
+                ${Object.entries(data.rewards).filter(([k,v]) => v > 0).map(([k,v]) => {
+                    const labels = { charm: '魅力', power: '权势', wisdom: '智谋', fame: '声望' };
+                    return `<span style="font-size: 0.8rem; margin-right: 10px;">${labels[k]} +${v}</span>`;
+                }).join('')}
+                <span style="font-size: 0.8rem; color: #e67e22;">${targetGuard ? targetGuard.name + ' 好感+2' : ''}</span>
+            </div>
+        `;
+        
+        // 更新属性
+        Object.entries(data.rewards).forEach(([k,v]) => {
+            state.userStats[k] = Math.min(100, (state.userStats[k] || 0) + v);
+        });
+        
+        signInState.lastSignInDate = new Date().toDateString();
+        signInState.totalDays++;
+        state.signInState = signInState;
+        
+        await saveData();
+        updateUserPanel(); // 刷新主界面属性显示
+
+        choicesEl.innerHTML = `
+            <button onclick="closeSignIn()" style="padding: 12px; background: var(--primary-color); color: white; border: none; border-radius: 8px; cursor: pointer; width: 100%;">
+                收笔存卷
+            </button>
+        `;
+    } catch (e) {
+        console.error(e);
+        closeSignIn();
+    }
+}
+    
+async function generateSignInEvent(overlay) {
+    const prompt = `你是玄夜卫系统的签到模块。请生成一个今日签到随机事件。
+
+【事件类型】（随机选择一种）：
+1. 暗卫来报：某位暗卫带来情报或礼物
+2. 朝廷消息：皇帝/太后/大臣有动作
+3. 江湖传闻：江湖中发生的趣事
+4. 私库进账：意外收入或宝物
+5. 突发状况：需要处理的小事件
+
+【输出格式】：
+事件描述（100字左右，古风文笔，有画面感）
+
+【奖励】：
+魅力+X / 权势+X / 智谋+X / 声望+X （随机1-3项，数值1-5）
+
+示例：
+子时三刻，天璇七匆匆来报：西域商队进贡奇珍异宝一批，其中有夜明珠一颗，光华流转。陛下特赐予殿下，以彰宠爱。
+
+【奖励】：魅力+3 声望+2`;
+
+    try {
+        const content = await callAI([{ role: 'user', content: prompt }], 0.9);
+        
+        // 解析奖励
+        const rewardMatch = content.match(/【奖励】[：:]\s*(.+)/);
+        let rewards = {};
+        if (rewardMatch) {
+            const rewardText = rewardMatch[1];
+            const patterns = [
+                { key: 'charm', regex: /魅力[+＋](\d+)/ },
+                { key: 'power', regex: /权势[+＋](\d+)/ },
+                { key: 'wisdom', regex: /智谋[+＋](\d+)/ },
+                { key: 'fame', regex: /声望[+＋](\d+)/ }
+            ];
+            patterns.forEach(p => {
+                const m = rewardText.match(p.regex);
+                if (m) rewards[p.key] = parseInt(m[1]);
+            });
+        }
+        
+        // 应用奖励
+        Object.keys(rewards).forEach(key => {
+            state.userStats[key] = Math.min(100, (state.userStats[key] || 0) + rewards[key]);
+        });
+        
+        // 更新签到记录
+        const today = new Date().toDateString();
+        if (signInState.lastSignInDate && new Date(signInState.lastSignInDate).getTime() === new Date(today).getTime() - 86400000) {
+            signInState.consecutiveDays++;
+        } else {
+            signInState.consecutiveDays = 1;
+        }
+        signInState.lastSignInDate = today;
+        signInState.totalDays++;
+        signInState.history.unshift({ date: today, event: content, rewards });
+        
+        state.signInState = signInState;
+        await saveData();
+        
+        // 显示结果
+        const contentDiv = document.getElementById('signin-content');
+        contentDiv.innerHTML = `
+            <div style="font-size: 0.95rem; line-height: 1.8; color: #333; text-align: justify; margin-bottom: 20px; white-space: pre-wrap;">
+                ${content.replace(/【奖励】[：:].+/, '').trim()}
+            </div>
+            <div style="border-top: 1px dashed #ddd; padding-top: 15px; margin-top: 15px;">
+                <div style="font-size: 0.85rem; color: var(--primary-color); font-weight: bold; margin-bottom: 10px;">
+                    ◇ 今日所得 ◇
+                </div>
+                <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+                    ${Object.keys(rewards).map(k => {
+                        const labels = { charm: '魅力', power: '权势', wisdom: '智谋', fame: '声望' };
+                        return `<span style="background: rgba(141, 163, 153, 0.1); padding: 5px 12px; border-radius: 15px; font-size: 0.8rem; color: var(--primary-dark);">
+                            ${labels[k]} +${rewards[k]}
+                        </span>`;
+                    }).join('')}
+                </div>
+            </div>
+            <div style="margin-top: 20px; font-size: 0.75rem; color: #888;">
+                连续签到 ${signInState.consecutiveDays} 天 | 累计 ${signInState.totalDays} 天
+            </div>
+            <button onclick="closeSignIn()" style="margin-top: 20px; width: 100%; padding: 12px; background: var(--primary-color); color: white; border: none; border-radius: 8px; cursor: pointer; font-family: var(--font-serif);">
+                知晓了
+            </button>
+        `;
+        
+    } catch (e) {
+        document.getElementById('signin-content').innerHTML = `
+            <div style="color: #c77;">签到失败：${e.message}</div>
+            <button onclick="closeSignIn()" style="margin-top: 15px; padding: 10px 20px; background: #ddd; border: none; border-radius: 6px; cursor: pointer;">关闭</button>
+        `;
+    }
+}
+
+function closeSignIn() {
+    const overlay = document.getElementById('signin-overlay');
+    if (overlay) overlay.remove();
+    updateUserPanel();
+}
+
+// ========== NPC系统 ==========
+if (!state.npcs) state.npcs = [];
+
+function detectAndCreateNPC(aiReply) {
+    // 匹配格式：【NPC：名字|关键词|触发条件】
+    const regex = /【NPC[：:]\s*(.+?)\|(.+?)\|(.+?)】/g;
+    let match;
+    
+    while ((match = regex.exec(aiReply)) !== null) {
+        const name = match[1].trim();
+        const keywords = match[2].trim();
+        const trigger = match[3].trim();
+        
+        // 检查是否已存在
+        if (state.npcs.some(n => n.name === name)) continue;
+        
+        const npc = {
+            id: 'npc_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
+            name: name,
+            keywords: keywords,
+            trigger: trigger, // 正则表达式字符串
+            desc: `${keywords}，当提及"${trigger}"时出现`,
+            createTime: new Date().toLocaleString()
+        };
+        
+        state.npcs.push(npc);
+        saveData();
+        
+        appendMsg('system-notice', `【新NPC】${name} 已录入系统`, state.history.length);
+    }
+}
+
+function checkNPCTrigger(userInput) {
+    if (!state.npcs || state.npcs.length === 0) return '';
+    
+    let triggeredNPCs = [];
+    state.npcs.forEach(npc => {
+        try {
+            const regex = new RegExp(npc.trigger, 'i');
+            if (regex.test(userInput)) {
+                triggeredNPCs.push(`【${npc.name}】：${npc.keywords}`);
+            }
+        } catch (e) {
+            console.error('NPC触发条件正则错误:', npc.trigger);
+        }
+    });
+    
+    if (triggeredNPCs.length > 0) {
+        return `\n【场景中出现的NPC】：\n${triggeredNPCs.join('\n')}`;
+    }
+    return '';
+}
+
+function openNPCManager() {
+    const modal = document.createElement('div');
+    modal.className = 'modal-overlay';
+    modal.style.display = 'flex';
+    modal.id = 'npc-manager-modal';
+    
+    modal.innerHTML = `
+        <div class="editor-container" style="max-width: 600px;">
+            <h2>NPC 管理器</h2>
+            <p style="font-size: 0.85rem; color: #888; margin-bottom: 15px;">
+                NPC会根据正则表达式自动出现在剧情中。格式：【NPC：名字|关键词|触发条件】
+            </p>
+            <div id="npc-list" style="max-height: 400px; overflow-y: auto; margin-bottom: 15px;"></div>
+            <div style="display: flex; gap: 10px;">
+                <button class="btn-primary" style="flex: 1;" onclick="addNewNPC()">+ 新增NPC</button>
+                <button class="btn-danger" style="flex: 1;" onclick="closeModal('npc-manager-modal'); document.getElementById('npc-manager-modal').remove();">关闭</button>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    renderNPCList();
+}
+
+// ========== NPC与暗卫关系绑定 ==========
+async function bindNPCToGuardRelationship(npcId, guardId) {
+    const npc = state.npcs.find(n => n.id === npcId);
+    const guard = state.guards.find(g => g.id === guardId);
+    
+    if (!npc || !guard) return;
+    
+    if (!guard.relationships) guard.relationships = [];
+    
+    // 检查是否已存在关系
+    if (guard.relationships.some(r => r.targetId === npcId)) {
+        showToast('此NPC已在关系网中');
+        return;
+    }
+    
+    // AI生成NPC与暗卫的关系
+    const prompt = `请生成NPC【${npc.name}】与暗卫【${guard.name}】之间的关系（20字以内）。
+    
+NPC特征：${npc.keywords}
+暗卫特征：${(guard.tags || []).join('、')}
+
+关系示例：故人相识 / 利益合作 / 暗恋 / 宿敌
+
+请输出关系描述：`;
+
+    try {
+        const relation = await callAI([{ role: 'user', content: prompt }], 0.8);
+        
+        guard.relationships.push({
+            targetId: npcId,
+            targetName: npc.name,
+            relation: relation.trim(),
+            detail: `${npc.name}是${npc.keywords}。`
+        });
+        
+        await saveData();
+        showToast(`已将 ${npc.name} 绑定到 ${guard.name} 的关系网`);
+        
+    } catch (e) {
+        showToast('绑定失败：' + e.message);
+    }
+}
+
+function renderNPCList() {
+    const list = document.getElementById('npc-list');
+    if (!list) return;
+    
+    list.innerHTML = '';
+    
+    if (!state.npcs || state.npcs.length === 0) {
+        list.innerHTML = '<div style="text-align: center; color: #999; padding: 20px;">暂无NPC</div>';
+        return;
+    }
+    
+    state.npcs.forEach((npc, idx) => {
+        const item = document.createElement('div');
+        item.style.cssText = 'background: #f9f9f9; padding: 12px; margin-bottom: 10px; border-radius: 8px; border: 1px solid #eee;';
+        item.innerHTML = `
+            <div style="font-weight: bold; color: var(--primary-dark); margin-bottom: 5px;">${npc.name}</div>
+            <div style="font-size: 0.85rem; color: #666; margin-bottom: 5px;">关键词：${npc.keywords}</div>
+            <div style="font-size: 0.8rem; color: #888;">触发条件：${npc.trigger}</div>
+            <div style="margin-top: 8px; display: flex; gap: 8px;">
+                <button onclick="showGuardSelectForNPC('${npc.id}')" style="padding: 4px 10px; background: var(--primary-light); color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.75rem;">绑定到暗卫</button>
+                <button onclick="deleteNPC(${idx})" style="padding: 4px 10px; background: #fee; color: #c77; border: none; border-radius: 4px; cursor: pointer; font-size: 0.75rem;">删除</button>
+            </div>
+        `;
+        list.appendChild(item);
+    });
+}
+
+// 新增：弹出暗卫选择列表
+function showGuardSelectForNPC(npcId) {
+    if (!state.guards || state.guards.length === 0) {
+        showToast('暂无暗卫');
+        return;
+    }
+    
+    const unlockedGuards = state.guards.filter(g => g.unlocked);
+    const guardNames = unlockedGuards.map(g => g.name).join('、');
+    
+    const selected = prompt(`选择要绑定的暗卫（输入名字）：\n${guardNames}`);
+    if (!selected) return;
+    
+    const guard = unlockedGuards.find(g => g.name === selected);
+    if (!guard) {
+        showToast('找不到该暗卫');
+        return;
+    }
+    
+    bindNPCToGuardRelationship(npcId, guard.id);
+    renderNPCList();
+}
+
+function addNewNPC() {
+    const input = prompt('输入格式：名字|关键词|触发条件\n例如：李掌柜|酒楼老板|酒楼|掌柜');
+    if (!input || !input.includes('|')) return;
+    
+    const parts = input.split('|');
+    if (parts.length < 3) {
+        showToast('格式错误，需要至少3个部分');
+        return;
+    }
+    
+    const npc = {
+        id: 'npc_' + Date.now(),
+        name: parts[0].trim(),
+        keywords: parts[1].trim(),
+        trigger: parts[2].trim(),
+        desc: `${parts[1].trim()}，当提及"${parts[2].trim()}"时出现`,
+        createTime: new Date().toLocaleString()
+    };
+    
+    state.npcs.push(npc);
+    saveData();
+    renderNPCList();
+    showToast('NPC已添加');
+}
+
+async function deleteNPC(idx) {
+    if (!confirm('确定删除此NPC？')) return;
+    state.npcs.splice(idx, 1);
+    await saveData();
+    renderNPCList();
+    showToast('已删除');
+}
     // ========== 页面加载初始化 ==========
     window.onload = async () => {
         await initDB();
@@ -4881,6 +6583,17 @@
         renderShortcuts();
         updateUserPanel();
         renderFavorites();
+        
+if (state.signInState) {
+    signInState = state.signInState;
+}
+
+// 确保关系数据结构存在
+if (state.guards) {
+    state.guards.forEach(g => {
+        if (!g.relationships) g.relationships = [];
+    });
+}
 
         document.addEventListener('click', hideContextMenu);
         document.addEventListener('touchstart', hideContextMenu);
@@ -4903,6 +6616,13 @@
         setTimeout(() => {
             initEroticSettings();
         }, 100);
+        
+        // 在你的 window.onload 最后面加入这段，防止数据报错
+if (state.guards) {
+    state.guards.forEach(g => {
+        if (!g.relationships) g.relationships = [];
+    });
+}
     };
 
 
@@ -4949,6 +6669,21 @@
     function renderShortcuts() {
         const container = document.getElementById('system-funcs');
         container.innerHTML = `<button class="sys-btn" onclick="openModal('summary-editor-modal')">● 记忆摘要</button>`; 
+        const npcBtn = document.createElement('button');
+npcBtn.className = 'sys-btn';
+npcBtn.innerText = '● NPC管理';
+npcBtn.onclick = () => openNPCManager();
+container.appendChild(npcBtn);
+const relBtn = document.createElement('button');
+relBtn.className = 'sys-btn';
+relBtn.innerText = '● 关系网络';
+relBtn.onclick = () => openRelationshipPanel();
+container.appendChild(relBtn);
+const pigeonBtn = document.createElement('button');
+pigeonBtn.className = 'sys-btn';
+pigeonBtn.innerText = '● 飞鸽传书';
+pigeonBtn.onclick = () => receivePigeonLetter();
+container.appendChild(pigeonBtn);
         
         (state.shortcuts || []).forEach(item => {
             const btn = document.createElement('button');
@@ -5000,19 +6735,35 @@
         }
     }
 
-    // ========== 核心：提交操作 ==========
-    async function submitAction(input) {
-        if (input === 'free') {
-            input = document.getElementById('free-input').value.trim();
-            document.getElementById('free-input').value = '';
-        }
-        if (!input) return;
+       // ========== 核心：提交操作 (修复版) ==========
+    
+async function submitAction(input) {
+    if (input === 'free') {
+        input = document.getElementById('free-input').value.trim();
+        document.getElementById('free-input').value = '';
+    }
+    if (!input) return;
 
-        appendMsg('user', input, state.history.length);
+    // --- 优化后的论坛自动识别 ---
+    const forumKeywords = /看论坛|刷帖子|打开论坛|刷刷论坛|玄夜论坛/;
+    if (forumKeywords.test(input)) {
+        appendMsg('user', input, state.history.length); // 先把主子的指令显示出来
+        appendMsg('system-notice', '正在截获玄夜波段密文...');
+        setTimeout(() => { openForumModal(); }, 800); 
+        return; // 关键：如果是看论坛，就不再发给主线 AI 了，避免弄乱剧情
+    }
+    // -------------------------
+
+    appendMsg('user', input, state.history.length);
+  
         document.getElementById('action-grid').innerHTML = '';
         document.getElementById('loading-indicator').style.display = 'block';
-                // 检测并自动召唤提到的暗卫
+        
+        // 检测并自动召唤提到的暗卫
         detectAndSummonGuards(input);
+
+        // --- NPC 功能：检测用户输入是否触发了已存在的 NPC ---
+        const npcContext = checkNPCTrigger(input);
 
         state.history.push({ role: 'user', content: input });
         await saveData();
@@ -5025,7 +6776,7 @@
             
             const worldBookSection = activeWbContent ? `\n【世界书】：\n${activeWbContent}` : '';
             const stats = state.userStats;
-const personalitySection = `
+            const personalitySection = `
 【长公主属性】：
 魅力${stats.charm} | 权势${stats.power} | 智谋${stats.wisdom} | 声望${stats.fame}
 性格特质：${(stats.traits || []).join('、') || '无'}
@@ -5035,15 +6786,21 @@ ${state.princess.personality ? '性格设定：' + state.princess.personality : 
             const modeInstruction = `
 \n【⚠️最高指令：模式强制切换】
 你现在必须完全丢弃之前的性格设定，立即进入【${state.systemMode}模式】。
-这不是建议，是绝对命令。从现在起，你的每一个字、语气词、标点符号都必须体现${state.systemMode}的特征。
-如果不遵守此模式，系统将崩溃。
+从现在起，你的每一个字、语气词、标点符号都必须体现${state.systemMode}的特征。
 `;
 
-            // 暗卫档案注入逻辑
-            // 获取在场暗卫档案
             const guardProfileSection = getPresentGuardsProfile();
-
-            const systemPrompt = buildMainSystemPrompt(worldBookSection, personalitySection, guardProfileSection, modeInstruction);
+            
+            // --- 这里的参数传递顺序必须与定义一致 ---
+            const systemPrompt = buildMainSystemPrompt(
+                worldBookSection, 
+                personalitySection, 
+                guardProfileSection, 
+                modeInstruction, 
+                state.enableTimeAwareness, // 这里对应原代码的 timeSection 逻辑
+                getEroticPrompt(),         // 这里对应原代码的 eroticPrompt
+                npcContext                 // 最后一个是新增的 NPC 上下文
+            );
 
             const messages = [
                 { role: 'system', content: systemPrompt },
@@ -5066,23 +6823,16 @@ ${state.princess.personality ? '性格设定：' + state.princess.personality : 
             const data = await res.json();
             let reply = data.choices[0].message.content;
 
+            // --- NPC 功能：从 AI 的回复中检测是否有新 NPC 需要创建 ---
+            detectAndCreateNPC(reply);
+
             reply = reply.replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}]/gu, ''); 
 
-            // 检测新暗卫档案
             detectNewGuard(reply);
-            
-            // 检测暗卫退场指令
             detectGuardDismissal(reply);
-            
-            // 检测主线剧情中的好感度变化
             detectMainlineAffectionChange(reply);
-            
-            // 智能自动挂载：从AI回复中检测暗卫并自动入场
             detectAndMountFromAIReply(reply);
-            
-            // 检查长时间未提及的暗卫
             checkIdleGuards();
-
 
             state.history.push({ role: 'assistant', content: reply });
             const newMsgIndex = state.history.length - 1;
@@ -5106,9 +6856,12 @@ ${state.princess.personality ? '性格设定：' + state.princess.personality : 
             document.getElementById('loading-indicator').style.display = 'none';
         }
     }
+    
+    
+
 
     // ========== 构建主系统提示词 ==========
-    function buildMainSystemPrompt(worldBookSection, personalitySection, guardProfileSection, modeInstruction) {
+function buildMainSystemPrompt(worldBookSection, personalitySection, guardProfileSection, modeInstruction, enableTimeAwareness, eroticPrompt, npcContext = '') {
         // 时间感知（仅在开启时生效）
         let timeSection = '';
         if (state.enableTimeAwareness) {
@@ -5421,7 +7174,7 @@ ${state.princess.personality ? '性格设定：' + state.princess.personality : 
 3. **【欲望实现】**：对长公主的所有念头，你都必须提供100%的行动支持。
 4. **【禁止反驳】**：绝对禁止使用任何形式的严厉语气。
 
-当前玩家身份：${state.princess.name}长公主。${worldBookSection}${personalitySection}${guardProfileSection}${modeInstruction}${timeSection}${getEroticPrompt()}            
+当前玩家身份：${state.princess.name}长公主。${worldBookSection}${personalitySection}${guardProfileSection}${modeInstruction}${timeSection}${eroticPrompt}${npcContext}           
 【绝对禁令】：
 1. 禁止发送任何 emoji 表情。
 2. 允许使用颜文字（仅在可爱模式）。
@@ -5443,6 +7196,10 @@ ${state.princess.personality ? '性格设定：' + state.princess.personality : 
 ✅ 方括号必须是英文字符
 ✅ 选项文字在两个方括号之间
 ✅ 每个选项独立一行
+
+【NPC创建指令】：
+当剧情需要新NPC时，使用格式：【NPC：名字|关键词|触发条件】
+例如：【NPC：李掌柜|酒楼老板、圆滑世故|酒楼|掌柜】
             
 【记忆摘要】：${state.summary || '暂无'}
 `;
@@ -6298,8 +8055,13 @@ ${recentContext}
         // 描述
         document.getElementById('guard-description').innerText = guard.desc || '暂无详述...';
         
+        // 显示人际关系
+renderGuardRelationships(guard);
+        
         closeModal('guards-gallery-modal');
         openModal('guard-detail-modal');
+        addDiaryButtonToGuardDetail();
+
     }
 
     function closeGuardDetail() {
@@ -6481,42 +8243,122 @@ ${recentContext}
         });
     }
 
-    function appendBubble(role, text, index, favorited = false) {
-        const boxId = state.currentChatMode === 'online' ? 'chat-history-online' : 'chat-history-offline';
-        const box = document.getElementById(boxId);
+// 修改后的特殊气泡渲染函数（支持删除、文字化画像）
+function appendBubble(role, text, index, favorited = false) {
+    const boxId = state.currentChatMode === 'online' ? 'chat-history-online' : 'chat-history-offline';
+    const box = document.getElementById(boxId);
+    
+    const container = document.createElement('div');
+    container.className = `msg-special-container ${role}`;
+    container.dataset.index = index;
+
+    // --- 1. 处理转账气泡 ---
+    if (text.startsWith('__TRANSFER__:')) {
+        const amount = text.split(':')[1];
+        container.innerHTML = `
+            <div class="transfer-card-v3 bubble-special" onclick="handleTransferAndSelect('${role}', '${amount}', ${index})">
+                <div class="transfer-v3-header">
+                    <div class="transfer-v3-icon">￥</div>
+                    <span style="font-size:12px; color:#5d6e65;">${role === 'user' ? '我的赏赐' : '对方上缴'}</span>
+                </div>
+                <div class="transfer-v3-body">
+                    <div class="transfer-v3-amount">￥${amount}</div>
+                    <div class="transfer-v3-status">点击处理金银 或 长按删除</div>
+                </div>
+            </div>
+        `;
+        box.appendChild(container);
+    } 
+    // --- 2. 处理画像气泡（改为精致文字描述卡片） ---
+    else if (text.startsWith('__IMAGE__:')) {
+        const parts = text.split('|');
+        const desc = parts[1] || "笔墨绘就，意境深远。";
+        
+        container.innerHTML = `
+            <div class="transfer-card-v3 bubble-special" style="border-color:#7b9987; background:#fdfdfb;" onclick="selectBubble(${index})">
+                <div class="transfer-v3-header" style="background:#f0f4f2;">
+                    <div class="transfer-v3-icon" style="background:#7b9987;">✍</div>
+                    <span style="font-size:12px; color:#4a5f53;">意境画像</span>
+                </div>
+                <div class="transfer-v3-body">
+                    <div style="font-family:var(--font-serif); font-size:0.95rem; line-height:1.6; color:#5d6e65; text-align:justify;">
+                        “${desc}”
+                    </div>
+                    <div style="font-size:10px; color:#999; margin-top:10px; border-top:1px dashed #eee; padding-top:5px;">点击可进行 删除/收藏</div>
+                </div>
+            </div>
+        `;
+        box.appendChild(container);
+    }
+    // --- 3. 普通文字气泡 ---
+    else {
         const div = document.createElement('div');
         div.className = `bubble ${role === 'user' ? 'user' : 'ai'}`;
-        if (favorited) div.classList.add('favorited');
         div.innerText = text;
         div.dataset.index = index;
         div.onclick = () => selectBubble(index);
         box.appendChild(div);
-        box.scrollTop = box.scrollHeight;
     }
 
-    function selectBubble(index) {
-        state.selectedBubbleIndex = index;
-        
-        document.querySelectorAll('.bubble').forEach(b => b.classList.remove('selected'));
-        const bubble = document.querySelector(`.bubble[data-index="${index}"]`);
-        if (bubble) bubble.classList.add('selected');
+    box.scrollTop = box.scrollHeight;
+}
 
-        const msg = state.currentGuard.chatHistory[index];
-        
-        const favOrb = document.querySelector('.menu-orb.favorite-orb');
-        favOrb.innerText = msg.favorited ? '★' : '☆';
+// 辅助函数：处理转账并同时选中气泡（为了能弹出删除键）
+function handleTransferAndSelect(role, amount, index) {
+    // 弹出原本的收钱/退回弹窗
+    handleTransferClick(role, amount, index);
+    // 同时选中该气泡，呼出底部带删除键的菜单
+    selectBubble(index);
+}
 
-        const regenOrb = document.querySelector('.menu-orb.regen-orb');
-        if (msg.role === 'user') {
-            regenOrb.style.opacity = '0.3';
-            regenOrb.style.pointerEvents = 'none';
-        } else {
-            regenOrb.style.opacity = '1';
-            regenOrb.style.pointerEvents = 'auto';
-        }
+// 处理点击转账
+function handleTransferClick(role, amount, index) {
+    const info = document.getElementById('transfer-modal-info');
+    info.innerText = role === 'user' ? `你赏赐了 ${amount} 两银子。` : `收到了上缴的 ${amount} 两银子。`;
+    
+    document.getElementById('btn-receive-money').onclick = () => {
+        showToast("已归入私库");
+        closeModal('transfer-action-modal');
+    };
+    
+    document.getElementById('btn-refund-money').onclick = () => {
+        showToast("已退回");
+        closeModal('transfer-action-modal');
+    };
+    
+    openModal('transfer-action-modal');
+}
 
-        showBubbleMenu();
+function selectBubble(index) {
+    state.selectedBubbleIndex = index;
+    
+    // 清除旧的选中样式
+    document.querySelectorAll('.bubble, .bubble-special').forEach(b => b.classList.remove('selected'));
+    
+    // 寻找普通气泡或特殊容器
+    const bubble = document.querySelector(`.bubble[data-index="${index}"], .msg-special-container[data-index="${index}"] .bubble-special`);
+    if (bubble) bubble.classList.add('selected');
+
+    const msg = state.currentGuard.chatHistory[index];
+    if(!msg) return;
+
+    // 更新底部菜单显示逻辑
+    const menu = document.getElementById('bubble-menu');
+    const favOrb = document.querySelector('.menu-orb.favorite-orb');
+    favOrb.innerText = msg.favorited ? '★' : '☆';
+
+    const regenOrb = document.querySelector('.menu-orb.regen-orb');
+    // 如果是特殊指令气泡，禁用重新生成按钮，因为指令不适合重写
+    if (msg.role === 'user' || msg.content.includes('__')) {
+        regenOrb.style.opacity = '0.3';
+        regenOrb.style.pointerEvents = 'none';
+    } else {
+        regenOrb.style.opacity = '1';
+        regenOrb.style.pointerEvents = 'auto';
     }
+
+    showBubbleMenu();
+}
 
     function showBubbleMenu() {
         const menu = document.getElementById('bubble-menu');
@@ -6583,23 +8425,45 @@ ${recentContext}
         hideBubbleMenu();
     }
 
-    async function regenSelectedBubble() {
-        if (state.selectedBubbleIndex === null || !state.currentGuard) return;
-        const msg = state.currentGuard.chatHistory[state.selectedBubbleIndex];
-        
-        if (msg.role === 'user') return;
-        if (!confirm('确定重新生成这条回复？')) return;
-        
-        hideBubbleMenu();
-        
-        // 删除当前消息并重新生成
-        state.currentGuard.chatHistory.splice(state.selectedBubbleIndex, 1);
-        await saveData();
-        renderGuardChatHistory();
-        
-        // 触发AI回复
-        triggerGuardAIReply(state.currentChatMode);
+ async function regenSelectedBubble() {
+    if (state.selectedBubbleIndex === null || !state.currentGuard) return;
+    const msg = state.currentGuard.chatHistory[state.selectedBubbleIndex];
+    
+    if (msg.role === 'user') {
+        showToast('只能重回AI的回复');
+        return;
     }
+    
+    if (!confirm('确定重回此处？将删除这条及之后的所有AI回复。')) return;
+    
+    hideBubbleMenu();
+    
+    // ========== 新逻辑：找到本轮AI的所有回复 ==========
+    const chatHistory = state.currentGuard.chatHistory;
+    const clickedIndex = state.selectedBubbleIndex;
+    
+    // 1. 向前找到最近的一条用户消息
+    let lastUserIndex = clickedIndex - 1;
+    while (lastUserIndex >= 0 && chatHistory[lastUserIndex].role !== 'user') {
+        lastUserIndex--;
+    }
+    
+    // 2. 向后找到下一条用户消息（或结尾）
+    let nextUserIndex = clickedIndex + 1;
+    while (nextUserIndex < chatHistory.length && chatHistory[nextUserIndex].role !== 'user') {
+        nextUserIndex++;
+    }
+    
+    // 3. 删除 [lastUserIndex+1, nextUserIndex) 之间的所有AI消息
+    const deleteCount = nextUserIndex - lastUserIndex - 1;
+    chatHistory.splice(lastUserIndex + 1, deleteCount);
+    
+    await saveData();
+    renderGuardChatHistory();
+    
+    // 4. 自动触发AI重新回复
+    triggerGuardAIReply(state.currentChatMode);
+}
 
     // ========== 发送用户消息 ==========
     function sendGuardUserMessage(mode) {
@@ -6683,6 +8547,27 @@ ${recentContext}
             const data = await res.json();
             let reply = data.choices[0].message.content;
             
+                        // --- 识别 AI 的转账指令 ---
+const transferRegex = /【(?:赏赐|转账|银两)[：:]\s*(\d+)】/g;
+            let transferMatch;
+            while ((transferMatch = transferRegex.exec(reply)) !== null) {
+                const amount = transferMatch[1];
+                g.chatHistory.push({ role: 'assistant', content: `__TRANSFER__:${amount}`, favorited: false });
+            }
+            // 移除原文中的指令
+            reply = reply.replace(transferRegex, '');
+
+            // --- 识别 AI 的图片/画像指令 ---
+            // 格式：【画像：图片描述】
+            const imgRegex = /【画像[：:](.+?)】/g;
+            let imgMatch;
+            while ((imgMatch = imgRegex.exec(reply)) !== null) {
+                const desc = imgMatch[1];
+                const randomImg = "https://img.heliar.top/file/1769637033551_Camera_1040g3k031oti50je1q6g5p3io3gkmiuvt32l0l8.jpg"; 
+                g.chatHistory.push({ role: 'assistant', content: `__IMAGE__:${randomImg}|${desc}`, favorited: false });
+            }
+            reply = reply.replace(imgRegex, '');
+
             // 移除emoji
             reply = reply.replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}]/gu, '');
                         
@@ -6723,29 +8608,48 @@ ${recentContext}
         }
     }
 
-    // ========== 构建暗卫聊天系统提示词（带主线剧情互通） ==========
-    function buildGuardSystemPrompt(guard, wbContent, mode) {
-        const stats = guard.stats || { loyalty: 100, skill: 0, affection: 0 };
+function buildGuardSystemPrompt(guard, wbContent, mode) {
+    const stats = guard.stats || { loyalty: 100, skill: 0, affection: 0 };
+    
+    // 获取主线剧情记忆
+    let mainStoryContext = '';
+    if (state.summary) {
+        mainStoryContext = `\n【主线剧情记忆】：\n${state.summary}`;
+    }
+    
+    // 获取最近的主线对话（简化版）
+    let recentMainHistory = '';
+    if (state.history && state.history.length > 0) {
+        const recent = state.history.slice(-6);
+        const lines = recent.map(h => {
+            const role = h.role === 'user' ? '长公主' : '系统/NPC';
+            const content = h.content.length > 100 ? h.content.slice(0, 100) + '...' : h.content;
+            return `${role}：${content}`;
+        });
+        recentMainHistory = `\n【近期主线发展】：\n${lines.join('\n')}`;
+    }
+    
+    // ===== 修复：将关系网信息提取到模板字符串外部 =====
+    let relationshipSection = '';
+    if (guard.relationships && guard.relationships.length > 0) {
+        const relations = guard.relationships.map(rel => {
+            const target = state.guards.find(g => g.id === rel.targetId) || { name: rel.targetName };
+            let detailText = rel.detail ? `\n  详细渊源：${rel.detail.slice(0, 100)}...` : '';
+            return `- 与【${target.name}】：${rel.relation}${detailText}`;
+        }).join('\n');
         
-        // 获取主线剧情记忆
-        let mainStoryContext = '';
-        if (state.summary) {
-            mainStoryContext = `\n【主线剧情记忆】：\n${state.summary}`;
-        }
-        
-        // 获取最近的主线对话（简化版）
-        let recentMainHistory = '';
-        if (state.history && state.history.length > 0) {
-            const recent = state.history.slice(-6);
-            const lines = recent.map(h => {
-                const role = h.role === 'user' ? '长公主' : '系统/NPC';
-                const content = h.content.length > 100 ? h.content.slice(0, 100) + '...' : h.content;
-                return `${role}：${content}`;
-            });
-            recentMainHistory = `\n【近期主线发展】：\n${lines.join('\n')}`;
-        }
-        
-        let prompt = `你现在扮演暗卫 [${guard.name}]。
+        relationshipSection = `
+【你的人际关系】：
+${relations}
+
+【关系运用提示】：
+- 在对话中可以自然提及这些关系
+- 例如："属下与天璇三曾是师兄弟，他若知晓此事..."
+- 或者："地煞七那厮一向与属下不睦，殿下需防他从中作梗"
+`;
+    }
+    
+    let prompt = `你现在扮演暗卫 [${guard.name}]。
 
 【人设档案】：
 ${guard.desc || '暂无详细档案'}
@@ -6760,6 +8664,7 @@ ${guard.desc || '暂无详细档案'}
 ${wbContent || '暂无额外设定'}
 ${mainStoryContext}
 ${recentMainHistory}
+${relationshipSection}
 
 【当前模式】：${mode === 'online' ? '线上传音(远程通讯，通过法器传音)' : '线下寝宫召见(面对面互动)'}。
 
@@ -6805,7 +8710,17 @@ ${recentMainHistory}
 - 数值范围1-5，重大事件可达10。
 - 低频率使用！大约每15次互动才触发一次变化
 - 日常闲聊不需要变化好感度`;
-        
+
+prompt += `\n【特殊识别】：如果看到以 "__TRANSFER__:" 开头的内容，代表长公主给了你赏钱。`;
+prompt += `\n【图片说明】：如果看到以 "data:image" 开头的内容，那是长公主给你发的画像，请进行点评或表达情绪。`;
+prompt += `
+【系统特殊指令】：
+1. 如果你想给殿下回礼或上交银两，请在回复中包含：【赏赐：金额】。
+2. 如果你想展示自己的画像、当时的场景或寄给殿下信物，请包含：【画像：画面内容的文字描述】。
+例如：这是一份微薄的心意。【赏赐：500】殿下请看，这是属下为你画的画像。【画像：一名暗卫在月下练剑的背影】
+`;
+
+
         prompt += getEroticPrompt();
         
         return prompt;
@@ -7024,62 +8939,77 @@ ${recentMainHistory}
         showToast(`已切换至${labels[weight]}`);
     }
 
-    // 根据权重获取暗卫档案
-    function getPresentGuardsProfile() {
-        if (!state.presentGuards || state.presentGuards.length === 0) return '';
+function getPresentGuardsProfile() {
+    if (!state.presentGuards || state.presentGuards.length === 0) return '';
+    
+    const weight = state.guardProfileWeight || 'standard';
+    
+    const profiles = state.presentGuards.map(id => {
+        const g = state.guards.find(guard => guard.id === id);
+        if (!g) return null;
         
-        const weight = state.guardProfileWeight || 'standard';
+        const stats = g.stats || { loyalty: 100, skill: 0, affection: 0 };
         
-        const profiles = state.presentGuards.map(id => {
-            const g = state.guards.find(guard => guard.id === id);
-            if (!g) return null;
-            
-            const stats = g.stats || { loyalty: 100, skill: 0, affection: 0 };
-            
-            // 精简模式：只有名字和关键词
-            if (weight === 'lite') {
-                const keywords = (g.tags || []).join('、') || '无';
-                return `【${g.name}】（${g.rank || '待定级'}）- 关键词：${keywords}`;
-            }
-            
-            // 标准模式：名字+属性+档案描述
-            if (weight === 'standard') {
-                return `【${g.name}】（${g.rank || '待定级'}）
+        // ===== 新增：获取关系信息 =====
+        let relationInfo = '';
+        if (g.relationships && g.relationships.length > 0) {
+            const relations = g.relationships.map(rel => {
+                const target = state.guards.find(gg => gg.id === rel.targetId) || { name: rel.targetName };
+                return `与${target.name}：${rel.relation}`;
+            }).join('；');
+            relationInfo = `\n【人际关系】：${relations}`;
+        }
+        // ===== 新增结束 =====
+        
+        // 精简模式：只有名字和关键词
+        if (weight === 'lite') {
+            const keywords = (g.tags || []).join('、') || '无';
+            return `【${g.name}】（${g.rank || '待定级'}）- 关键词：${keywords}${relationInfo}`;
+        }
+        
+        // 标准模式：名字+属性+档案描述
+        if (weight === 'standard') {
+            return `【${g.name}】（${g.rank || '待定级'}）
 忠诚度：${stats.loyalty} | 武力：${stats.skill} | 好感：${stats.affection}
-档案：${g.desc || g.tags?.join('、') || '暂无详述'}`;
+档案：${g.desc || g.tags?.join('、') || '暂无详述'}${relationInfo}`;
+        }
+        
+        // 深度模式：标准模式 + 最近聊天记录摘要
+        if (weight === 'deep') {
+            let chatSummary = '';
+            if (g.chatHistory && g.chatHistory.length > 0) {
+                const recentChats = g.chatHistory.slice(-6);
+                const chatLines = recentChats.map(c => {
+                    const role = c.role === 'user' ? '长公主' : g.name;
+                    const content = c.content.length > 50 ? c.content.slice(0, 50) + '...' : c.content;
+                    return `${role}：${content}`;
+                });
+                chatSummary = `\n【近期对话记忆】：\n${chatLines.join('\n')}`;
             }
             
-            // 深度模式：标准模式 + 最近聊天记录摘要
-            if (weight === 'deep') {
-                let chatSummary = '';
-                if (g.chatHistory && g.chatHistory.length > 0) {
-                    const recentChats = g.chatHistory.slice(-6);
-                    const chatLines = recentChats.map(c => {
-                        const role = c.role === 'user' ? '长公主' : g.name;
-                        const content = c.content.length > 50 ? c.content.slice(0, 50) + '...' : c.content;
-                        return `${role}：${content}`;
-                    });
-                    chatSummary = `\n【近期对话记忆】：\n${chatLines.join('\n')}`;
-                }
-                
-                return `【${g.name}】（${g.rank || '待定级'}）
+            return `【${g.name}】（${g.rank || '待定级'}）
 忠诚度：${stats.loyalty} | 武力：${stats.skill} | 好感：${stats.affection}
-档案：${g.desc || g.tags?.join('、') || '暂无详述'}${chatSummary}`;
-            }
-            
-            return null;
-        }).filter(p => p !== null);
+档案：${g.desc || g.tags?.join('、') || '暂无详述'}${relationInfo}${chatSummary}`;
+        }
         
-        if (profiles.length === 0) return '';
-        
-        const weightLabel = { lite: '精简', standard: '标准', deep: '深度' }[weight];
-        
-        return `\n【当前在场暗卫档案】（${weightLabel}模式）：
+        return null;
+    }).filter(p => p !== null);
+    
+    if (profiles.length === 0) return '';
+    
+    const weightLabel = { lite: '精简', standard: '标准', deep: '深度' }[weight];
+    
+    return `\n【当前在场暗卫档案】（${weightLabel}模式）：
 ${profiles.join('\n\n')}
 
 【暗卫退场机制】：
-当暗卫离开场景时，请使用格式：【退场：暗卫名】或【暗卫名退下】或【暗卫名告退】`;
-    }
+当暗卫离开场景时，强制使用格式：【退场：暗卫名】或【暗卫名退下】或【暗卫名告退】
+
+【人际关系运用】：
+在剧情中，可以自然提及暗卫之间的关系，例如：
+- "天璇三见到地煞七，眼神微微一凛，两人曾是师兄弟..."
+- "地煞七对天枢一暗中较劲，不愿在殿下面前落于下风"`;
+}
 
     // ========== 增强版用户面板功能 ==========
     function updateUserPanel() {
@@ -7868,7 +9798,7 @@ function buildFanficPromptNew(chars) {
         daily: `
 【文风：宫廷日常/温馨流水】
 - 核心基调：岁月静好，主仆相伴。
-- 描写重点：注重生活细节，如研磨、递茶、在此刻无声胜有声的默契。
+- 描写重点：注重生活细节，注意以下只是参考禁止照搬，如研磨、递茶、在此刻无声胜有声的默契。
 - 场景建议：书房伴读、午后小憩、一同喂鱼、深夜守夜。`,
         
         romantic: `
@@ -7885,8 +9815,10 @@ function buildFanficPromptNew(chars) {
         
         humor: `
 【文风：直白粗俗/涩情描写】
+最高优先级：强制要求gb体位，即女性使用道具或手指插入男性后穴。除非特殊要求禁止出现反攻女主情节否则你去死，反攻即暗卫插入女主、要求女主口交等。
 - 核心基调：情事性爱/肉文/淫靡。
-- 描写重点：女主和男主在床上的R18情节，自行设定玩法，要求直白粗俗的语言描绘具体的做爱剧情，gb体位（即女性使用道具或手指插入男性）除非特殊要求禁止反攻女主。
+- 描写重点：女主和男主在床上的R18情节，自行设定玩法，要求直白粗俗的语言描绘具体的做爱剧情。
+– 绝对禁止词：隐秘、下身、那处、穴口。支持词语：鸡巴、肉棒、贱狗、主人。每次输出前自检，是否有以上禁止词或其他类似替代词出现？如果有滚回重写。
 - 场景建议：两人各种情况下的做爱情节。`
     };
 
@@ -7917,7 +9849,7 @@ ${specificStyleGuide}
 ${multiCharLogic}
 
 【创作要求】
-●**最高优先级**: 绝对禁止出现神明宗教类词汇，绝对禁止机械化男主。
+●**最高优先级**: 绝对禁止出现神明宗教类词汇，绝对禁止机械化男主，禁止输出思维链。
 1. **沉浸感**：多用"环境描写"烘托氛围（如烛光、风雪、香炉烟气）。
 2. **Show, Don't Tell**：不要直接说"他很伤心"，要写"他低垂着头，指甲深深掐入掌心，渗出丝丝血迹却浑然不觉"。
 3. **符合人设**：暗卫必须自称"属下"，对女主使用敬语，严守尊卑（除非剧情要求打破）。
@@ -8777,7 +10709,41 @@ async function auDeleteMessage() {
     renderAUHistory();
     showToast('已删除');
 }
+// 新增：点击编辑按钮触发
+function auEditMessage() {
+    hideAUContextMenu(); // 关闭长按菜单
+    const world = auState.worlds.find(w => w.id === auState.currentWorldId);
+    // 校验数据有效性
+    if (!world || auContextIndex === null || !world.history[auContextIndex]) return;
+    
+    // 把当前消息内容填入弹窗
+    const msg = world.history[auContextIndex];
+    document.getElementById('au-edit-text').value = msg.content;
+    
+    // 打开弹窗
+    openModal('au-edit-modal');
+}
 
+// 新增：保存编辑内容
+async function auSaveEdit() {
+    const world = auState.worlds.find(w => w.id === auState.currentWorldId);
+    const newText = document.getElementById('au-edit-text').value.trim();
+    
+    if (!world || auContextIndex === null) return;
+    if (!newText) {
+        showToast('内容不能为空');
+        return;
+    }
+    
+    // 更新内存数据
+    world.history[auContextIndex].content = newText;
+    
+    // 存库并刷新界面
+    await saveData();
+    renderAUHistory();
+    closeModal('au-edit-modal');
+    showToast('剧场记录已修订');
+}
 // ========== 增强版 AU 模块逻辑 ==========
 let auState = {
     currentWorldId: null,
@@ -8875,6 +10841,7 @@ function enterAUWorld(worldId) {
 }
 
 // 渲染互动记录
+// 渲染互动记录
 function renderAUHistory() {
     const world = auState.worlds.find(w => w.id === auState.currentWorldId);
     const container = document.getElementById('au-chat-history');
@@ -8897,7 +10864,10 @@ function renderAUHistory() {
         container.appendChild(div);
     });
     
-    container.scrollTop = container.scrollHeight;
+    // ✅ 修改：使用 requestAnimationFrame 确保 DOM 完全渲染后再滚动
+    requestAnimationFrame(() => {
+        container.scrollTop = container.scrollHeight;
+    });
 }
 
 
@@ -9021,6 +10991,1440 @@ function closeAUModule() {
         document.getElementById('au-module').style.display = 'none';
     }
 }
+// 控制扩展面板显示/隐藏
+function toggleExtraPanel(event) {
+    if (event) event.stopPropagation();
+    const panel = document.getElementById('chat-extra-panel');
+    panel.classList.toggle('show');
+}
+
+// 点击页面其他地方关闭面板
+document.addEventListener('click', (e) => {
+    const panel = document.getElementById('chat-extra-panel');
+    if (panel.classList.contains('show') && !e.target.closest('.chat-extra-panel') && !e.target.closest('.extra-func-btn')) {
+        panel.classList.remove('show');
+    }
+});
+
+async function handleExtraFunc(type) {
+    const panel = document.getElementById('chat-extra-panel');
+    panel.classList.remove('show');
+    
+    const guard = state.currentGuard;
+    if (!guard) return;
+
+    switch(type) {
+        case 'photo':
+            document.getElementById('chat-image-handler').click();
+            break;
+            
+        case 'transfer':
+            const amount = prompt(`赐予 ${guard.name} 的赏银金额:`, "500");
+            if (amount && !isNaN(amount)) {
+                guard.chatHistory.push({ role: 'user', content: `__TRANSFER__:${amount}`, favorited: false });
+                await saveData();
+                renderGuardChatHistory();
+            }
+            break;
+            
+        case 'diary':
+            openGuardDiary(guard); // ← 修改这里
+            break;
+            
+        case 'relation':
+            openRelationshipPanelForGuard();
+            break;
+            
+        case 'sleep':
+            showToast("侍寝面板开发中...");
+            break;
+    }
+}
+
+// ========== 修复版：绿白古风·增强版日记系统 ==========
+async function openGuardDiary(guard) {
+    if (!guard) {
+        showToast('暗卫信息缺失');
+        return;
+    }
+    
+    if (!guard.diaries) guard.diaries = [];
+    
+    const modal = document.getElementById('diary-modal');
+    if (!modal) {
+        showToast('日记面板加载失败');
+        return;
+    }
+    
+    const contentEl = document.getElementById('diary-content');
+    const dateEl = document.getElementById('diary-date');
+    const titleEl = document.getElementById('diary-title');
+    
+    // 设置标题
+    titleEl.innerText = `${guard.name}的内心独白`;
+    
+    // 显示加载状态
+    contentEl.innerText = '纸墨铺展中...';
+    dateEl.innerText = '';
+    
+    openModal('diary-modal');
+
+    // 获取最近的对话记录
+    const recentChat = (guard.chatHistory || [])
+        .slice(-5)
+        .map(m => {
+            const role = m.role === 'user' ? '长公主' : guard.name;
+            return `${role}：${m.content.slice(0, 50)}`;
+        })
+        .join('\n') || '暂无直接互动，正在暗处守护';
+    
+    // 构建提示词
+    const prompt = `你现在是暗卫【${guard.name}】。
+请根据你和长公主最近的互动记录，写一篇日记（300-400字左右）。
+要求：
+1. 语气符合你的性格设定
+2. 文笔古风唯美
+3. 表达对长公主的真实感受
+4. 可以包含对其他暗卫的观察
+【最近互动】：
+${recentChat}
+【你的性格】：${(guard.tags || []).join('、') || '忠诚、克制、深沉'}
+
+请开始书写日记：`;
+
+    try {
+        const diaryText = await callAI([{ role: 'user', content: prompt }], 0.85);
+        
+        // 存储日记
+        const newDiary = {
+            id: 'diary_' + Date.now(),
+            content: diaryText,
+            date: new Date().toLocaleString(),
+            chatSnapshot: recentChat.slice(0, 150)
+        };
+        
+        guard.diaries.unshift(newDiary);
+        if (guard.diaries.length > 30) guard.diaries.length = 30; // 最多保存30篇
+        
+        await saveData();
+        
+        // 更新显示
+        contentEl.innerText = diaryText;
+        dateEl.innerText = `—— ${new Date().toLocaleDateString()} · 深夜`;
+        
+    } catch (e) {
+        console.error('日记生成失败:', e);
+        contentEl.innerText = '笔墨干涸，天机紊乱。\n\n' + e.message;
+        dateEl.innerText = '（生成失败）';
+    }
+}
+
+// 显示历史日记列表
+function showDiaryHistory(guardId) {
+    const guard = state.guards.find(g => g.id === guardId);
+    if (!guard || !guard.diaries || guard.diaries.length === 0) {
+        showToast('暂无历史日记');
+        return;
+    }
+    
+    const modal = document.createElement('div');
+    modal.className = 'modal-overlay';
+    modal.style.display = 'flex';
+    modal.style.zIndex = '6100';
+    modal.id = 'diary-history-modal-temp';
+    
+    const diaryList = guard.diaries.map((d, idx) => `
+        <div onclick="viewHistoryDiary('${guardId}', ${idx})" style="padding: 12px; background: #f9f9f9; border-radius: 8px; margin-bottom: 10px; cursor: pointer; border: 1px solid #e8e8e8; transition: all 0.2s;">
+            <div style="font-weight: bold; color: var(--primary-dark); margin-bottom: 5px; font-family: var(--font-serif);">
+                ${d.date}
+            </div>
+            <div style="font-size: 0.85rem; color: #666; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                ${d.content}
+            </div>
+        </div>
+    `).join('');
+    
+    modal.innerHTML = `
+        <div class="editor-container" style="max-width: 500px; max-height: 80vh; overflow-y: auto;">
+            <h2 style="color: var(--primary-color); border-bottom: 1px solid #eee; padding-bottom: 12px; margin-bottom: 15px;">
+                ${guard.name}的日记本
+            </h2>
+            <div style="margin-bottom: 15px; font-size: 0.85rem; color: #888;">
+                共 ${guard.diaries.length} 篇日记
+            </div>
+            <div style="max-height: calc(80vh - 200px); overflow-y: auto;">
+                ${diaryList}
+            </div>
+            <button class="btn-danger" style="width: 100%; margin-top: 15px; padding: 12px;" onclick="closeTempDiaryModal()">
+                合上日记本
+            </button>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+}
+
+// 查看历史日记详情
+function viewHistoryDiary(guardId, index) {
+    const guard = state.guards.find(g => g.id === guardId);
+    if (!guard || !guard.diaries[index]) return;
+    
+    const diary = guard.diaries[index];
+    
+    const contentEl = document.getElementById('diary-content');
+    const dateEl = document.getElementById('diary-date');
+    const titleEl = document.getElementById('diary-title');
+    
+    titleEl.innerText = `${guard.name}的日记 · 往日回想`;
+    contentEl.innerText = diary.content;
+    dateEl.innerText = `—— ${diary.date}`;
+    
+    closeTempDiaryModal();
+}
+
+// 重新生成当前日记
+async function regenCurrentDiary(guardId) {
+    const guard = state.guards.find(g => g.id === guardId);
+    if (!guard) return;
+    
+    if (!confirm('确定重写此篇日记？')) return;
+    
+    // 删除最新的一篇
+    if (guard.diaries && guard.diaries.length > 0) {
+        guard.diaries.shift();
+    }
+    
+    await saveData();
+    
+    // 重新生成
+    await openGuardDiary(guard);
+}
+
+// 关闭临时日记历史模态框
+function closeTempDiaryModal() {
+    const modal = document.getElementById('diary-history-modal-temp');
+    if (modal) {
+        modal.remove();
+    }
+}
+// 处理图片上传并保存
+async function processChatImage(input) {
+    const file = input.files[0];
+    if (!file) return;
+    
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+        const imageData = e.target.result; // 这里是Base64图片数据
+        const guard = state.currentGuard;
+        
+        // 存入聊天记录
+        guard.chatHistory.push({ role: 'user', content: imageData, favorited: false });
+        await saveData();
+        renderGuardChatHistory();
+        
+        showToast("图片已发送");
+        // 发送图片后，也可以触发AI回复
+    };
+    reader.readAsDataURL(file);
+    input.value = ''; // 清空选择
+}
+// ========== 暗卫人际关系系统 ==========
+function openRelationshipPanel() {
+    const modal = document.createElement('div');
+    modal.className = 'modal-overlay';
+    modal.style.display = 'flex';
+    modal.id = 'relationship-modal';
+    
+    modal.innerHTML = `
+        <div class="editor-container" style="max-width: 700px;">
+            <h2>暗卫人际关系网</h2>
+            <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                <button class="btn-primary" style="flex: 1;" onclick="autoGenerateRelationships()">AI自动生成关系网</button>
+                <button class="btn-primary" style="flex: 1;" onclick="addManualRelationship()">手动添加关系</button>
+            </div>
+            <div id="relationship-grid" style="max-height: 500px; overflow-y: auto;"></div>
+            <button class="btn-danger" style="width: 100%; margin-top: 15px;" onclick="closeModal('relationship-modal'); document.getElementById('relationship-modal').remove();">关闭</button>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    renderRelationshipGrid();
+}
+
+function renderRelationshipGrid() {
+    const grid = document.getElementById('relationship-grid');
+    if (!grid) return;
+    
+    grid.innerHTML = '';
+    
+    if (!state.guards || state.guards.length === 0) {
+        grid.innerHTML = '<div style="text-align: center; color: #999; padding: 40px;">暂无暗卫</div>';
+        return;
+    }
+    
+    const unlockedGuards = state.guards.filter(g => g.unlocked);
+    
+    unlockedGuards.forEach(guard => {
+        if (!guard.relationships) guard.relationships = [];
+        
+        const card = document.createElement('div');
+        card.style.cssText = 'background: white; border: 1px solid #eee; border-radius: 10px; padding: 15px; margin-bottom: 15px;';
+        
+        const relList = guard.relationships.map(rel => {
+            const target = state.guards.find(g => g.id === rel.targetId) || state.npcs?.find(n => n.id === rel.targetId);
+            const targetName = target ? target.name : rel.targetName || '未知';
+            return `<div style="display: flex; justify-content: space-between; align-items: center; padding: 8px; background: #f9f9f9; border-radius: 6px; margin-bottom: 5px;">
+                <span style="font-size: 0.9rem;"><strong>${targetName}</strong> <span style="color:#888;margin:0 5px;">|</span> ${rel.relation}</span>
+                <div>
+                    <button onclick="viewRelationDetail('${guard.id}', '${rel.targetId || rel.targetName}')" style="padding: 3px 8px; font-size: 0.75rem; background: var(--primary-light); color: white; border: none; border-radius: 4px; cursor: pointer; margin-right: 5px;">往事</button>
+                    <button onclick="deleteRelation('${guard.id}', '${rel.targetId || rel.targetName}')" style="padding: 3px 8px; font-size: 0.75rem; background: #fee; color: #c77; border: none; border-radius: 4px; cursor: pointer;">断绝</button>
+                </div>
+            </div>`;
+        }).join('');
+        
+        card.innerHTML = `
+            <div style="font-weight: bold; font-size: 1.1rem; color: var(--primary-dark); margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+                <span>${guard.name} <small style="font-weight:normal; font-size:0.75rem; color:#888;">(羁绊: ${guard.relationships.length})</small></span>
+                <div style="display:flex; gap:5px;">
+                    <button onclick="autoGenerateSingleGuardRel('${guard.id}')" style="padding: 5px 10px; font-size: 0.8rem; background: #8da399; color: white; border: none; border-radius: 6px; cursor: pointer;">● AI推演</button>
+                    <button onclick="addRelationForGuard('${guard.id}')" style="padding: 5px 10px; font-size: 0.8rem; background: #f0f4f2; color: #5d6e65; border: 1px solid #d8e0d8; border-radius: 6px; cursor: pointer;">+ 手动</button>
+                </div>
+            </div>
+            <div>${relList || '<div style="color: #999; font-size: 0.85rem; padding: 10px;">孤影寂寥，暂无羁绊...</div>'}</div>
+        `;
+        
+        grid.appendChild(card);
+    });
+}
+
+async function autoGenerateRelationships() {
+    if (!state.guards || state.guards.length < 2) {
+        showToast('至少需要2位暗卫才能生成关系网');
+        return;
+    }
+    
+    const overlay = document.getElementById('fanfic-loading-overlay');
+    overlay.classList.add('active');
+    document.getElementById('fanfic-loading-progress').innerText = '正在推演人际关系...';
+    
+    try {
+        const guardsList = state.guards.filter(g => g.unlocked).map(g => `${g.name}（${g.rank}，${(g.tags || []).join('、')}）`).join('\n');
+        
+        const prompt = `你是玄夜卫系统的关系网分析模块。请根据以下暗卫信息，生成合理的人际关系网。
+
+【暗卫名单】：
+${guardsList}
+
+【输出格式】：每行一个关系，格式为：暗卫A|暗卫B|关系描述
+例如：
+天璇三|地煞七|师兄弟，曾一同受训
+地煞七|天枢一|暗中较劲的竞争对手
+天枢一|玄刃五|有救命之恩
+
+要求：
+1. 每位暗卫至少有1-2个关系
+2. 关系要合理，符合人设
+3. 可以是：师兄弟、竞争对手、生死之交、暗恋、仇人、救命恩人等
+4. 输出10-15条关系即可
+
+请开始生成：`;
+
+        const content = await callAI([{ role: 'user', content: prompt }], 0.8);
+        
+        // 解析关系
+        const lines = content.split('\n').filter(l => l.includes('|'));
+        let addedCount = 0;
+        
+        lines.forEach(line => {
+            const parts = line.split('|').map(p => p.trim());
+            if (parts.length < 3) return;
+            
+            const guardA = state.guards.find(g => g.name === parts[0]);
+            const guardB = state.guards.find(g => g.name === parts[1]);
+            
+            if (guardA && guardB) {
+                if (!guardA.relationships) guardA.relationships = [];
+                if (!guardB.relationships) guardB.relationships = [];
+                
+                // 避免重复
+                if (!guardA.relationships.some(r => r.targetId === guardB.id)) {
+                    guardA.relationships.push({
+                        targetId: guardB.id,
+                        targetName: guardB.name,
+                        relation: parts[2],
+                        detail: ''
+                    });
+                    addedCount++;
+                }
+                
+                // 反向关系
+                if (!guardB.relationships.some(r => r.targetId === guardA.id)) {
+                    guardB.relationships.push({
+                        targetId: guardA.id,
+                        targetName: guardA.name,
+                        relation: parts[2],
+                        detail: ''
+                    });
+                }
+            }
+        });
+        
+        await saveData();
+        renderRelationshipGrid();
+        showToast(`已生成 ${addedCount} 条关系`);
+        
+    } catch (e) {
+        showToast('生成失败：' + e.message);
+    } finally {
+        overlay.classList.remove('active');
+    }
+}
+
+async function autoGenerateSingleGuardRel(guardId) {
+    const guard = state.guards.find(g => g.id === guardId);
+    if (!guard) return;
+
+    // 获取所有潜在目标（其他已解锁暗卫和NPC）
+    const others = [
+        ...state.guards.filter(g => g.unlocked && g.id !== guardId),
+        ...(state.npcs || [])
+    ];
+
+    if (others.length === 0) {
+        showToast('除了他之外，目前没有其他暗卫或NPC，无法建立关系。');
+        return;
+    }
+
+    const overlay = document.getElementById('fanfic-loading-overlay');
+    overlay.classList.add('active');
+    document.getElementById('fanfic-loading-progress').innerText = `正在推演 ${guard.name} 的宿命羁绊...`;
+
+    try {
+        const othersList = others.map(o => `${o.name}(${(o.tags || []).join('/')})`).join('、');
+        
+        const prompt = `你现在是玄夜卫的关系网推演模块。
+请为暗卫【${guard.name}】从以下名单中挑选 3 到 5 位建立人际关系。
+
+【待选名单】：${othersList}
+【当前暗卫特质】：${(guard.tags || []).join('、')}
+
+要求：
+1. 只能从【待选名单】中挑选。
+2. 关系描述要符合古风暗卫背景（如：生死之交、宿敌、暗中照拂、竞争、曾共同受训等，发散思维请勿拘泥。不过禁止输出情爱有关）。
+3. 必须输出 JSON 数组格式。
+
+输出格式示例：
+[
+  {"name": "名单里的名字", "rel": "关系简述"},
+  {"name": "名单里的名字", "rel": "关系简述"}
+]`;
+
+        const res = await callAI([{ role: 'user', content: prompt }], 0.85);
+        const rels = JSON.parse(res.replace(/```json|```/g, '').trim());
+
+        let addedCount = 0;
+        for (const item of rels) {
+            const target = others.find(o => o.name === item.name);
+            if (!target) continue;
+
+            // 检查是否已经存在关系
+            if (guard.relationships.some(r => r.targetId === target.id || r.targetName === target.name)) continue;
+
+            // 1. 给主暗卫添加关系
+            guard.relationships.push({
+                targetId: target.id,
+                targetName: target.name,
+                relation: item.rel,
+                detail: ""
+            });
+
+            // 2. 双向同步：给目标对象也添加对应关系 (如果是 state.guards 里的暗卫)
+            if (target.id && target.id.startsWith('g_')) {
+                const targetGuard = state.guards.find(tg => tg.id === target.id);
+                if (targetGuard) {
+                    if (!targetGuard.relationships) targetGuard.relationships = [];
+                    // 检查反向是否已存在
+                    if (!targetGuard.relationships.some(r => r.targetId === guard.id)) {
+                        targetGuard.relationships.push({
+                            targetId: guard.id,
+                            targetName: guard.name,
+                            relation: item.rel, // 镜像关系描述
+                            detail: ""
+                        });
+                    }
+                }
+            }
+            addedCount++;
+        }
+
+        await saveData();
+        renderRelationshipGrid();
+        showToast(`已为 ${guard.name} 建立 ${addedCount} 条新羁绊`);
+
+    } catch (e) {
+        console.error(e);
+        showToast('推演失败，天机不可泄露：' + e.message);
+    } finally {
+        overlay.classList.remove('active');
+    }
+}
+
+function addRelationForGuard(guardId) {
+    const guard = state.guards.find(g => g.id === guardId);
+    if (!guard) return;
+    
+    const allTargets = [
+        ...state.guards.filter(g => g.unlocked && g.id !== guardId).map(g => ({ id: g.id, name: g.name, type: 'guard' })),
+        ...(state.npcs || []).map(n => ({ id: n.id, name: n.name, type: 'npc' }))
+    ];
+    
+    if (allTargets.length === 0) {
+        showToast('没有可添加关系的对象');
+        return;
+    }
+    
+    const targetName = prompt(`选择关系对象（输入名字）：\n${allTargets.map(t => t.name).join('、')}`);
+    if (!targetName) return;
+    
+    const target = allTargets.find(t => t.name === targetName);
+    if (!target) {
+        // 允许自定义NPC
+        const relation = prompt(`${guard.name} 与 ${targetName} 的关系：`);
+        if (!relation) return;
+        
+        if (!guard.relationships) guard.relationships = [];
+        guard.relationships.push({
+            targetId: null,
+            targetName: targetName,
+            relation: relation,
+            detail: ''
+        });
+        
+        saveData();
+        renderRelationshipGrid();
+        showToast('关系已添加');
+        return;
+    }
+    
+    const relation = prompt(`${guard.name} 与 ${target.name} 的关系：`);
+    if (!relation) return;
+    
+    if (!guard.relationships) guard.relationships = [];
+    guard.relationships.push({
+        targetId: target.id,
+        targetName: target.name,
+        relation: relation,
+        detail: ''
+    });
+    
+    saveData();
+    renderRelationshipGrid();
+    showToast('关系已添加');
+}
+
+function addManualRelationship() {
+    const input = prompt('输入格式：暗卫A|暗卫B/NPC名|关系描述\n例如：天璇三|地煞七|师兄弟');
+    if (!input || !input.includes('|')) return;
+    
+    const parts = input.split('|').map(p => p.trim());
+    if (parts.length < 3) {
+        showToast('格式错误');
+        return;
+    }
+    
+    const guardA = state.guards.find(g => g.name === parts[0]);
+    if (!guardA) {
+        showToast(`找不到暗卫：${parts[0]}`);
+        return;
+    }
+    
+    const guardB = state.guards.find(g => g.name === parts[1]);
+    
+    if (!guardA.relationships) guardA.relationships = [];
+    
+    guardA.relationships.push({
+        targetId: guardB ? guardB.id : null,
+        targetName: parts[1],
+        relation: parts[2],
+        detail: ''
+    });
+    
+    saveData();
+    renderRelationshipGrid();
+    showToast('关系已添加');
+}
+
+// 替换现有的 viewRelationDetail 函数
+async function viewRelationDetail(guardId, targetIdOrName) {
+    const guard = state.guards.find(g => g.id === guardId);
+    if (!guard) return;
+    
+    const rel = guard.relationships.find(r => r.targetId === targetIdOrName || r.targetName === targetIdOrName);
+    if (!rel) return;
+    
+    // 定义一个显示面板的内部辅助函数
+    const showInPanel = (content) => {
+        document.getElementById('rel-detail-title').innerText = `${guard.name} ◈ ${rel.targetName}`;
+        document.getElementById('rel-detail-content').innerText = content;
+        openModal('relation-detail-modal');
+    };
+
+    // 如果已经有详情了，直接面板显示
+    if (rel.detail) {
+        showInPanel(rel.detail);
+        return;
+    }
+    
+    // 如果没有，则调用 AI 生成
+    const overlay = document.getElementById('fanfic-loading-overlay');
+    overlay.classList.add('active');
+    document.getElementById('fanfic-loading-progress').innerText = '正在追溯往事...';
+    
+    try {
+        const target = state.guards.find(g => g.id === rel.targetId) || { name: rel.targetName, desc: '未知' };
+        
+        const prompt = `请详细描述以下两人的渊源故事（200字左右，古风文笔）：
+【人物A】：${guard.name}
+【人物B】：${target.name}
+【羁绊】：${rel.relation}
+要求：文笔唯美，包含一个具体的往事瞬间。`;
+
+        const detail = await callAI([{ role: 'user', content: prompt }], 0.8);
+        
+        rel.detail = detail;
+        await saveData();
+        
+        overlay.classList.remove('active');
+        showInPanel(detail); // 生成后使用面板显示
+        
+    } catch (e) {
+        overlay.classList.remove('active');
+        showToast('天机模糊，无法追溯：' + e.message);
+    }
+}
+
+async function deleteRelation(guardId, targetIdOrName) {
+    if (!confirm('确定删除此关系？')) return;
+    
+    const guard = state.guards.find(g => g.id === guardId);
+    if (!guard) return;
+    
+    guard.relationships = guard.relationships.filter(r => r.targetId !== targetIdOrName && r.targetName !== targetIdOrName);
+    
+    await saveData();
+    renderRelationshipGrid();
+    showToast('已删除');
+}
+// 定位：在 JS 脚本末尾附近，替换现有的 renderGuardRelationships
+function renderGuardRelationships(guard) {
+    // 1. 定位到暗卫详情面板中的“档案详述”部分
+    const bioSection = document.querySelector('.bio-section');
+    if (!bioSection) return;
+    
+    // 2. 清理旧的展示区域，防止重复叠加
+    const oldRelSection = document.getElementById('guard-relations-section');
+    if (oldRelSection) oldRelSection.remove();
+    
+    // 3. 如果该暗卫没有任何关系，则不显示此区域
+    if (!guard.relationships || guard.relationships.length === 0) return;
+    
+    // 4. 创建新的关系展示容器
+    const relSection = document.createElement('div');
+    relSection.id = 'guard-relations-section';
+    
+    relSection.innerHTML = `
+        <div class="bio-title">人际羁绊</div>
+        <div id="guard-relations-list" style="margin-top: 10px;"></div>
+    `;
+    
+    // 将容器插入到“档案详述”下方
+    bioSection.parentElement.insertBefore(relSection, bioSection.nextSibling);
+    
+    // 5. 循环渲染每一条属于该暗卫自己的关系
+    const relList = document.getElementById('guard-relations-list');
+    guard.relationships.forEach(rel => {
+        // 尝试从暗卫列表或NPC列表中寻找目标对象
+        const target = state.guards.find(g => g.id === rel.targetId) || 
+                       (state.npcs ? state.npcs.find(n => n.id === rel.targetId) : null) || 
+                       { name: rel.targetName || '未知' };
+        
+        const card = document.createElement('div');
+        card.className = 'rel-mini-card';
+        
+        // 构造卡片内容
+        card.innerHTML = `
+            <div class="rel-avatar-circle">${target.name.charAt(0)}</div>
+            <div class="rel-info-box">
+                <span class="rel-name-text">${target.name}</span>
+                <span class="rel-tag-text">${rel.relation}</span>
+            </div>
+            <div style="font-size: 0.7rem; color: var(--primary-color); opacity: 0.7;">查看渊源 〉</div>
+        `;
+        
+        // 点击查看详细渊源剧情
+        card.onclick = () => viewRelationDetail(guard.id, rel.targetId || rel.targetName);
+        
+        relList.appendChild(card);
+    });
+}
+function openRelationshipPanelForGuard() {
+    closeModal('guard-detail-modal');
+    openRelationshipPanel();
+}
+// 直接发送图片
+function directSendImage(input) {
+    const file = input.files[0];
+    if (!file) return;
+    
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+        const imageData = e.target.result;
+        const guard = state.currentGuard;
+        
+        // 1. 存入数据
+        guard.chatHistory.push({ role: 'user', content: imageData, favorited: false });
+        await saveData();
+        
+        // 2. 刷新显示
+        renderGuardChatHistory();
+        
+// 3. 触发 AI 评论图片
+triggerGuardAIReply(state.currentChatMode); 
+    };
+    reader.readAsDataURL(file);
+    input.value = ''; // 重置
+}
+// 打开占星台
+function openDivinationModal() {
+    // 强制检查一次，没有就建一个
+    if (!state.divinationHistory) state.divinationHistory = [];
+    
+    closeModal('entertainment-modal');
+    document.getElementById('divination-content').style.display = 'block';
+    document.getElementById('divination-animation').style.display = 'none';
+    document.getElementById('divination-result').style.display = 'none';
+    openModal('divination-modal');
+}
+
+// 2. 开始推演（增加保存逻辑）
+async function startDivination() {
+    const query = document.getElementById('divination-query').value.trim() || "整体运势";
+    const animation = document.getElementById('divination-animation');
+    const content = document.getElementById('divination-content');
+    const resultDiv = document.getElementById('divination-result');
+    const historyDiv = document.getElementById('divination-history');
+
+    content.style.display = 'none';
+    historyDiv.style.display = 'none';
+    animation.style.display = 'block';
+
+    const prompt = `你现在是玄夜卫系统的【占星台天机模块】。请为长公主推演命理。
+    所求之事：${query}
+    当前剧情参考：${state.summary || '暂无'}
+    请输出JSON: { "title": "签头", "poem": "四句诗", "desc": "解析", "reward": {"attr": "charm/power/wisdom/fame", "val": 1} }`;
+
+    try {
+        const response = await callAI([{ role: 'user', content: prompt }], 0.85);
+        let jsonMatch = response.match(/\{[\s\S]*\}/); // 提取花括号内容
+if (!jsonMatch) throw new Error("解析失败");
+const data = JSON.parse(jsonMatch[0]);
+        // --- 核心：存入历史记录 ---
+        const historyEntry = {
+            ...data,
+            query: query,
+            date: new Date().toLocaleString(),
+            id: Date.now()
+        };
+        if (!state.divinationHistory) state.divinationHistory = [];
+        state.divinationHistory.unshift(historyEntry); 
+        if (state.divinationHistory.length > 20) state.divinationHistory.pop(); // 最多存20条
+        
+        // 应用奖励
+        if (data.reward && data.reward.attr) {
+            state.userStats[data.reward.attr] = Math.min(100, (state.userStats[data.reward.attr] || 0) + data.reward.val);
+            updateUserPanel();
+        }
+        await saveData();
+
+        // 呈现结果
+        showDivinationResult(historyEntry);
+
+    } catch (e) {
+        showToast("天机紊乱，推演失败");
+        content.style.display = 'block';
+    } finally {
+        animation.style.display = 'none';
+    }
+}
+
+// 3. 显示特定结果的辅助函数
+function showDivinationResult(data) {
+    document.getElementById('divination-content').style.display = 'none';
+    document.getElementById('divination-history').style.display = 'none';
+    document.getElementById('divination-animation').style.display = 'none';
+    
+    document.getElementById('divi-title').innerText = `◈ ${data.title} ◈`;
+    document.getElementById('divi-poem').innerHTML = data.poem.replace(/\n/g, '<br>');
+    document.getElementById('divi-desc').innerText = data.desc;
+    
+    const attrLabels = { charm: '魅力', power: '权势', wisdom: '智谋', fame: '声望' };
+    document.getElementById('divi-stat').innerText = data.reward ? `✧ 天机指引：${attrLabels[data.reward.attr]} +${data.reward.val}` : "✧ 因果已定";
+    
+    document.getElementById('divination-result').style.display = 'block';
+}
+
+// 4. 展示历史记录列表
+function showDivinationHistory() {
+    document.getElementById('divination-content').style.display = 'none';
+    document.getElementById('divination-result').style.display = 'none';
+    
+    const list = document.getElementById('divi-history-list');
+    list.innerHTML = '';
+    
+    if (!state.divinationHistory || state.divinationHistory.length === 0) {
+        list.innerHTML = '<div style="text-align:center; padding:20px; color:#999;">暂无往日天机记录</div>';
+    } else {
+        state.divinationHistory.forEach((entry, idx) => {
+            const item = document.createElement('div');
+            item.style.cssText = 'padding:12px; border:1px solid #eef2ef; border-radius:8px; margin-bottom:10px; cursor:pointer; background:#fff;';
+            item.onclick = () => showDivinationResult(entry);
+            item.innerHTML = `
+                <div style="font-size:0.75rem; color:#a8c4b8; margin-bottom:4px;">${entry.date} · 求：${entry.query}</div>
+                <div style="font-family:var(--font-serif); color:#8da399; font-weight:bold;">${entry.title}</div>
+                <div style="font-size:0.8rem; color:#888; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${entry.poem.split('\n')[0]}...</div>
+            `;
+            list.appendChild(item);
+        });
+    }
+    
+    document.getElementById('divination-history').style.display = 'block';
+}
+
+// 5. 返回主界面
+function backToDivinationMain() {
+    document.getElementById('divination-history').style.display = 'none';
+    document.getElementById('divination-content').style.display = 'block';
+}
+// ========== 随机翻牌子系统 ==========
+async function drawRandomGuard() {
+    const unlockedGuards = (state.guards || []).filter(g => g.unlocked);
+
+    if (unlockedGuards.length === 0) {
+        showToast('主子殿下，目前还没有暗卫入卫呢，快去剧情里收服几个吧～');
+        return;
+    }
+
+    // 随机选一个
+    const luckyGuard = unlockedGuards[Math.floor(Math.random() * unlockedGuards.length)];
+    
+    // 创建翻牌效果的弹窗
+    const overlay = document.createElement('div');
+    overlay.id = 'draw-guard-overlay';
+    overlay.style.cssText = `
+        position: fixed; inset: 0; z-index: 5500;
+        background: rgba(0,0,0,0.7); backdrop-filter: blur(10px);
+        display: flex; align-items: center; justify-content: center;
+    `;
+
+    let avatarHtml = `<div style="width:100px; height:100px; background:var(--primary-color); border-radius:50%; margin:0 auto 15px; display:flex; align-items:center; justify-content:center; font-size:2rem; color:white; border:3px solid #fff;">${luckyGuard.name[0]}</div>`;
+    if (luckyGuard.avatar) {
+        avatarHtml = `<img src="${luckyGuard.avatar}" style="width:100px; height:100px; border-radius:50%; object-fit:cover; margin:0 auto 15px; border:3px solid #fff; display:block;">`;
+    }
+
+    overlay.innerHTML = `
+        <div style="width:300px; background:#fffefb; border:2px solid #d4a574; border-radius:15px; padding:25px; text-align:center; animation: flipIn 0.6s ease-out;">
+            <div style="font-family: var(--font-serif); color:#b0895d; font-size:1.2rem; margin-bottom:15px;">✧ 翻选结果 ✧</div>
+            ${avatarHtml}
+            <div style="font-family: var(--font-serif); font-size:1.5rem; font-weight:bold; color:#333; margin-bottom:5px;">${luckyGuard.name}</div>
+            <div style="font-size:0.85rem; color:#888; margin-bottom:20px;">[ ${luckyGuard.rank || '暗卫'} ]</div>
+            <div style="font-size:0.9rem; color:#555; line-height:1.6; margin-bottom:20px; font-style:italic;">
+                “既然殿下翻到了属下的牌子，那今夜……便由属下贴身侍奉。”
+            </div>
+<div style="display:flex; flex-direction:column; gap:10px;">
+    <!-- 确定按钮 -->
+    <button onclick="confirmSummon('${luckyGuard.id}')" style="padding:10px; background:#8da399; color:white; border:none; border-radius:8px; cursor:pointer; font-family: var(--font-serif);">召见入场</button>
+    
+    <!-- 取消/关闭按钮 -->
+    <button onclick="document.getElementById('draw-guard-overlay').remove()" style="padding:10px; background:#f5f5f5; color:#999; border:1px solid #ddd; border-radius:8px; cursor:pointer; font-family: var(--font-serif);">
+        ✕ 取消翻牌
+    </button>
+</div>
+    `;
+    
+    document.body.appendChild(overlay);
+}
+
+// 翻牌后直接召唤到场
+async function confirmSummon(guardId) {
+    if (!state.presentGuards.includes(guardId)) {
+        state.presentGuards.push(guardId);
+        await saveData();
+        updatePresentCount();
+        appendMsg('system-notice', `【${state.guards.find(g=>g.id===guardId).name}】已被殿下翻牌，正火速赶往寝宫...`);
+    }
+    document.getElementById('draw-guard-overlay').remove();
+    closeModal('user-panel-modal');
+    showToast('已召见！去大厅看看吧～');
+}
+async function receivePigeonLetter() {
+    const unlockedGuards = (state.guards || []).filter(g => g.unlocked);
+    if (unlockedGuards.length === 0) return;
+
+    const guard = unlockedGuards[Math.floor(Math.random() * unlockedGuards.length)];
+    
+    const prompt = `你现在是暗卫【${guard.name}】。请给长公主写一封信。
+    要求：100字左右，${(guard.tags || []).join('、')}风格。直接输出正文。`;
+
+    try {
+        const letterContent = await callAI([{ role: 'user', content: prompt }], 0.8);
+        
+        // [核心改动] 保存到系统主线记忆中
+        const historyEntry = `【飞鸽传书】${guard.name}寄来私信：\n${letterContent}`;
+        state.history.push({ role: 'assistant', content: historyEntry });
+        
+        // 保存并刷新主厅显示（这样主子在大厅能看到通知）
+        await saveData();
+        appendMsg('system-notice', `一只青鸽掠过窗棂，留下${guard.name}的信笺。`);
+        
+        // 弹出美美的弹窗
+        showPigeonModal(guard, letterContent);
+    } catch (e) {
+        console.error('传书失败', e);
+    }
+}
+
+function showPigeonModal(guard, content) {
+    const overlay = document.createElement('div');
+    overlay.id = 'pigeon-overlay';
+    overlay.style.cssText = `
+        position: fixed; inset: 0; z-index: 6500;
+        background: rgba(40, 45, 42, 0.6); backdrop-filter: blur(8px);
+        display: flex; align-items: center; justify-content: center; padding: 20px;
+    `;
+
+    // 适配横屏的信笺容器
+    overlay.innerHTML = `
+        <div class="pigeon-paper" style="
+            width: 100%; 
+            max-width: 500px;
+            background: #fffefb; 
+            border: 1px solid #d8e0d8; 
+            padding: 35px; 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2); 
+            position: relative; 
+            font-family: var(--font-serif);
+            transition: all 0.3s ease;
+        ">
+            <!-- 黛绿内边框 -->
+            <div style="position: absolute; inset: 8px; border: 1px solid #8da399; opacity: 0.2; pointer-events: none;"></div>
+            
+            <div style="text-align: center; color: #8da399; font-size: 0.8rem; margin-bottom: 25px; letter-spacing: 4px; opacity: 0.8;">◈ 见信如晤 ◈</div>
+            
+            <div style="font-size: 1.05rem; color: #4a5650; line-height: 2.1; text-align: justify; overflow-y: auto; max-height: 60vh; white-space: pre-wrap;">${content}</div>
+            
+            <div style="text-align: right; margin-top: 25px; color: #8da399; font-size: 0.95rem; font-weight: bold;">
+                —— ${guard.name} 谨奉
+            </div>
+            
+            <button onclick="document.getElementById('pigeon-overlay').remove()" style="width: 100%; margin-top: 30px; padding: 12px; background: #8da399; color: white; border: none; border-radius: 2px; cursor: pointer; font-family: var(--font-serif); transition: 0.3s; letter-spacing: 2px;">
+                焚去此信
+            </button>
+        </div>
+    `;
+    document.body.appendChild(overlay);
+}
+let globalPigeonTimer = null;
+
+function startPigeonTimer() {
+    // 1. 先清除旧的计时器，防止重复
+    if (globalPigeonTimer) clearInterval(globalPigeonTimer);
+    
+    // 2. 获取主子设置的时间
+    const minutes = state.pigeonInterval || 0;
+    
+    // 3. 如果不是0，就启动计时器
+    if (minutes > 0) {
+        console.log(`[系统] 鸽笼已打开，每 ${minutes} 分钟会有鸽子飞来~`);
+        globalPigeonTimer = setInterval(() => {
+            // 只有在没打开其他模态框的时候才弹窗（避免打扰主子配置系统）
+            const anyModalOpen = Array.from(document.querySelectorAll('.modal-overlay'))
+                                    .some(m => m.style.display === 'flex');
+            
+            // 且主界面是隐藏状态（代表在游戏内）才触发
+            const inGame = document.getElementById('home-screen').classList.contains('hidden');
+
+            if (!anyModalOpen && inGame) {
+                receivePigeonLetter();
+            }
+        }, minutes * 60000); // 分钟转毫秒
+    }
+}
+// ========== 论坛系统 2.0 完整逻辑 ========== 
+let currentForumIndex = null;
+let currentCategory = '全部';
+
+// 1. 打开论坛
+async function openForumModal() {
+    closeModal('entertainment-modal');
+    document.getElementById('forum-modal').style.display = 'flex';
+    document.getElementById('forum-detail-view').style.display = 'none';
+    
+    if (!state.forumPosts || state.forumPosts.length === 0) {
+        await refreshForum();
+    } else {
+        renderForumPosts();
+    }
+}
+
+function closeForum() {
+    document.getElementById('forum-modal').style.display = 'none';
+}
+
+// 2. AI 生成帖子（带回帖）
+async function refreshForum() {
+    const grid = document.getElementById('forum-posts-grid');
+    grid.innerHTML = `
+        <div class="forum-empty">
+            <div class="forum-empty-icon">◇</div>
+            <div class="fanfic-loading-spinner" style="margin:20px auto;"></div>
+            <div>正在监听玄夜频道...</div>
+        </div>
+    `;
+
+    const recentGuards = (state.guards || []).filter(g => g.unlocked).slice(0, 5).map(g => g.name).join('、') || '暗卫们';
+    
+const prompt = `你现在是《玄夜卫》匿名论坛的AI版主。
+【论坛世界观】：${state.forumWorldview || '默认古风设定'}
+【特殊风格要求】：${state.forumRequirements || '无'}
+当前主线剧情记忆：${state.summary || '长公主近日平安'}
+最近活跃的暗卫：${recentGuards}
+
+请生成8个暗卫们的匿名帖子。要求：
+1. tag从 闲聊/吐槽/攻略/失物 中随机选择
+2. user要拟人化且有趣，例如：[偷吃点心被抓的黄级]、[想放假的地煞七]、[暗恋殿下的天字某号]
+3. time用相对时间，如：3分钟前、1小时前、刚刚
+4. summary是帖子正文，100-150字，要有生活气息和古风感，禁止emoji表情
+5. replies_list是回帖数组，每个帖子生成3-6条回复，回复要有梗、有反差、有吐槽
+6. isHot随机，约10%概率为true
+7. likes和views是随机数字
+
+输出JSON数组格式（直接输出数组，不要其他文字）：
+[{
+  "tag": "闲聊",
+  "title": "今天伙食又是窝窝头",
+  "user": "[匿名玄卫·饿到反胃]",
+  "time": "2小时前",
+  "summary": "属下已经连续吃了三天窝窝头...",
+  "isHot": false,
+  "likes": 12,
+  "views": 156,
+  "replies_list": [
+    {"user": "[地煞七]", "text": "楼主你是不是傻，天字号当然有特供啊"},
+    {"user": "[天枢一]", "text": "什么烧鸡？是殿下赏的"}
+  ]
+}]`;
+
+    try {
+        const res = await callAI([{ role: 'user', content: prompt }], 0.85);
+        const cleanJson = res.replace(/```json|```/g, '').trim();
+        state.forumPosts = JSON.parse(cleanJson);
+        
+        // 确保每个帖子都有必要字段
+        state.forumPosts.forEach(p => {
+            if (!p.replies_list) p.replies_list = [];
+            if (!p.likes) p.likes = Math.floor(Math.random() * 50);
+            if (!p.views) p.views = Math.floor(Math.random() * 200) + 50;
+        });
+        
+        await saveData();
+        renderForumPosts();
+    } catch (e) {
+        console.error('论坛加载失败:', e);
+        grid.innerHTML = `
+            <div class="forum-empty">
+                <div class="forum-empty-icon">✕</div>
+                <div style="color:#c77;">天机紊乱，连接中断</div>
+                <button class="sys-btn" style="margin-top:15px;" onclick="refreshForum()">重新连接</button>
+            </div>
+        `;
+    }
+}
+
+// 3. 渲染帖子列表 (已加入删除功能与头像优化)
+function renderForumPosts() {
+    const grid = document.getElementById('forum-posts-grid');
+    grid.innerHTML = '';
+    
+    // 这里的筛选逻辑保持不变
+    const filtered = currentCategory === '全部' 
+        ? state.forumPosts 
+        : state.forumPosts.filter(p => p.tag === currentCategory);
+
+    if (!filtered || filtered.length === 0) {
+        grid.innerHTML = '<div class="forum-empty"><div class="forum-empty-icon">○</div><div>此板块暂无密信</div></div>';
+        return;
+    }
+
+    filtered.forEach((post) => {
+        // 获取该帖子在原始 state.forumPosts 中的真实索引，方便删除
+        const realIdx = state.forumPosts.indexOf(post);
+        const card = document.createElement('div');
+        card.className = 'forum-post-card';
+        
+        // --- 头像优化逻辑 ---
+        // 提取中括号里的第一个字，如果没有中括号就取首字母
+        const userMatch = post.user.match(/\[(.+?)\]/);
+        const avatarChar = userMatch ? userMatch[1].charAt(0) : post.user.charAt(0);
+        // 根据用户名长度自动分配不同的黛绿色（一共5种配色）
+        const bgColors = ['#7b9987', '#5f7a6a', '#8da399', '#a8c4b8', '#6e827a'];
+        const bgColor = bgColors[post.user.length % bgColors.length];
+        
+        card.innerHTML = `
+            ${post.isHot ? '<div class="post-hot-badge">精华</div>' : ''}
+            <div class="post-header">
+                <div class="post-author" onclick="viewPostDetail(${realIdx})">
+                    <div class="author-avatar" style="background:${bgColor}">${avatarChar}</div>
+                    <div>
+                        <div class="author-name">${post.user}</div>
+                        <div class="post-time">${post.time}</div>
+                    </div>
+                </div>
+                <!-- 删除按钮：必须加 stopPropagation 阻止冒泡 -->
+                <button class="post-delete-btn" onclick="event.stopPropagation(); deleteForumPost(${realIdx})">✕ 焚毁</button>
+            </div>
+            <div class="post-title" onclick="viewPostDetail(${realIdx})">${post.title}</div>
+            <div class="post-summary" onclick="viewPostDetail(${realIdx})">${post.summary}</div>
+            <div class="post-footer" onclick="viewPostDetail(${realIdx})">
+                <span>回帖 ${post.replies_list ? post.replies_list.length : 0}</span>
+                <span>赏赞 ${post.likes || 0}</span>
+                <span style="margin-left:auto; color:#7b9987;">${post.tag}</span>
+            </div>
+        `;
+        grid.appendChild(card);
+    });
+}
+
+// 4. 筛选板块
+function filterForum(category) {
+    currentCategory = category;
+    
+    // 更新标签样式
+    document.querySelectorAll('.filter-tag').forEach(tag => {
+        tag.classList.remove('active');
+        if (tag.innerText.includes(category)) {
+            tag.classList.add('active');
+        }
+    });
+    
+    renderForumPosts();
+}
+
+// 5. 查看帖子详情 (修复转发按钮)
+function viewPostDetail(idx) {
+    currentForumIndex = idx;
+    const post = state.forumPosts[idx];
+    if(!post) return;
+
+    post.views = (post.views || 0) + 1;
+    
+    const view = document.getElementById('forum-detail-view');
+    const scroll = document.getElementById('detail-scroll');
+    view.style.display = 'flex';
+    
+    // 更新顶部标题
+    document.getElementById('detail-nav-title').innerText = post.title.slice(0, 10) + (post.title.length > 10 ? '...' : '');
+
+    // 渲染评论列表
+    let repliesHtml = (post.replies_list || []).map((r, i) => `
+        <div class="reply-item">
+            <div class="reply-header">
+                <span class="reply-author">${r.user}</span>
+                <span class="reply-floor">#${i + 1}楼</span>
+            </div>
+            <div class="reply-text">${r.text}</div>
+        </div>
+    `).join('');
+
+    scroll.innerHTML = `
+        <div class="detail-container-inner">
+            <div class="detail-title">${post.title}</div>
+            <div class="detail-meta">
+                <span>◆ 笔者 ${post.user}</span>
+                <span>◆ 阅览 ${post.views}</span>
+                <span>◆ 时间 ${post.time}</span>
+            </div>
+            <div class="detail-content">${post.summary}</div>
+            
+            <div class="replies-section">
+                <div class="replies-title" style="display:flex; justify-content: space-between; align-items:center;">
+                    <span>◇ 众议 (${post.replies_list?.length || 0})</span>
+                    <div class="regen-replies-btn" onclick="regenPostReplies(${idx})">↻ 重回此论</div>
+                </div>
+                <div id="replies-list-container">
+                    ${repliesHtml || '<div style="text-align:center;color:#ccc;padding:20px;">暂无回帖</div>'}
+                </div>
+            </div>
+        </div>
+    `;
+    scroll.scrollTop = 0;
+}
+
+function closeForumDetail() {
+    document.getElementById('forum-detail-view').style.display = 'none';
+}
+
+// 6. 发布新帖
+async function showCreatePostPrompt() {
+    const title = prompt("殿下，请输入帖子标题：");
+    if (!title || !title.trim()) return;
+    
+    const content = prompt("请输入正文内容（可选）：", "这是一条来自长公主府的绝密消息...");
+    
+    const newPost = {
+        tag: "殿下驾到",
+        title: title.trim(),
+        user: `[${state.princess.name || '昭宁'}（匿名）]`,
+        time: "刚刚",
+        summary: content || "（无正文）",
+        isHot: true,
+        likes: 1,
+        views: 1,
+        replies_list: []
+    };
+    
+    if (!state.forumPosts) state.forumPosts = [];
+    state.forumPosts.unshift(newPost);
+    
+    await saveData();
+    renderForumPosts();
+    showToast("发布成功！暗卫们正在疯狂围观...");
+}
+
+// 7. 提交回帖
+async function submitForumReply() {
+    const input = document.getElementById('forum-reply-input');
+    const text = input.value.trim();
+    
+    if (!text || currentForumIndex === null) return;
+    
+    const post = state.forumPosts[currentForumIndex];
+    if (!post.replies_list) post.replies_list = [];
+    
+    post.replies_list.push({
+        user: `[${state.princess.name || '昭宁'}（匿名）]`,
+        text: text,
+        time: "刚刚"
+    });
+    
+    input.value = '';
+    await saveData();
+    
+    // 刷新详情页
+    viewPostDetail(currentForumIndex);
+        showToast("回帖成功！已经通过秘法同步到玄夜阁。");
+}
+
+// 8. 点赞功能
+async function likePost() {
+    if (currentForumIndex === null) return;
+    
+    const post = state.forumPosts[currentForumIndex];
+    post.likes = (post.likes || 0) + 1;
+    
+    await saveData();
+    // 局部刷新详情页以显示最新的点赞数
+    viewPostDetail(currentForumIndex);
+    showToast("已收到殿下的赏赞！");
+}
+
+// 9. 关闭整个论坛面板
+function closeForum() {
+    document.getElementById('forum-modal').style.display = 'none';
+}
+
+// 10. 给详情页面的返回按钮绑定逻辑 (如果 HTML 里没写的话)
+function closeForumDetail() {
+    document.getElementById('forum-detail-view').style.display = 'none';
+    // 同时也刷新一下列表页，同步一下点赞和浏览数
+    renderForumPosts();
+}
+
+// 11. 快捷发布按钮的逻辑补充
+async function showCreatePostPrompt() {
+    const title = prompt("殿下，请输入要发布的匿名帖子标题：");
+    if (!title || !title.trim()) return;
+    
+    const summary = prompt("请输入正文内容：", "此处正在谈论关于玄夜卫的秘事...");
+    if (!summary || !summary.trim()) return;
+
+    // AI 辅助生成一个符合楼主身份的回复
+    const mockUser = "[匿名·" + (state.princess.name || "长公主") + "府的一片云]";
+    
+    const newEntry = {
+        tag: "闲聊",
+        title: title,
+        user: mockUser,
+        time: "刚刚",
+        summary: summary,
+        isHot: true,
+        likes: 0,
+        views: 1,
+        replies_list: []
+    };
+
+    if (!state.forumPosts) state.forumPosts = [];
+    state.forumPosts.unshift(newEntry);
+    await saveData();
+    renderForumPosts();
+    showToast("发布成功！");
+}
+
+// 初始化状态检查
+if (state && !state.forumPosts) {
+    state.forumPosts = [];
+}
+
+console.log("🌿 论坛系统 2.0 逻辑加载完毕，当前环境：横竖屏全适配版");
+
+// 12. 删除帖子功能逻辑
+async function deleteForumPost(idx) {
+    if (!confirm("殿下要焚毁这条密信吗？此举不可撤回。")) return;
+    
+    // 从数组中移除
+    state.forumPosts.splice(idx, 1);
+    // 保存存档
+    await saveData();
+    // 重新渲染列表
+    renderForumPosts();
+    showToast("密信已化为灰烬。");
+}
+
+// 13. 重回此论（AI 局部重新生成评论）
+async function regenPostReplies(idx) {
+    const post = state.forumPosts[idx];
+    const btn = document.querySelector('.regen-replies-btn');
+    
+    if (btn) {
+        btn.style.opacity = "0.5";
+        btn.innerText = "↻ 正在重新推演...";
+    }
+
+    // 针对这篇帖子的内容，精准定制提示词
+    const prompt = `你现在是《玄夜卫》匿名论坛。请针对以下帖子内容，重新生成5条左右暗卫们的匿名回帖。
+    帖子标题：${post.title}
+    正文摘要：${post.summary}
+    
+    要求：
+    1. 语气拟人，有的高冷，有的碎碎念，有的爱吐槽。
+    2. 绝对禁止emoji表情。
+    3. 只要输出JSON，不要其他解释。
+    格式：[{"user":"匿名ID","text":"内容"}]`;
+
+    try {
+        const res = await callAI([{ role: 'user', content: prompt }], 0.9);
+        const newReplies = JSON.parse(res.replace(/```json|```/g, '').trim());
+        
+        // 替换旧评论
+        post.replies_list = newReplies;
+        await saveData();
+        
+        // 局部刷新详情页面的评论区
+        viewPostDetail(idx); 
+        showToast("论调已然翻新。");
+    } catch (e) {
+        console.error(e);
+        showToast("天机混乱，无法重回。");
+        if (btn) {
+            btn.style.opacity = "1";
+            btn.innerText = "↻ 重回此论";
+        }
+    }
+}
+// --- 论坛新功能函数集 ---
+
+// 1. 打开设定
+function openForumSettings() {
+    document.getElementById('forum-wv-input').value = state.forumWorldview || '';
+    document.getElementById('forum-req-input').value = state.forumRequirements || '';
+    openModal('forum-settings-modal');
+}
+
+// 2. 保存设定
+async function saveForumSettings() {
+    state.forumWorldview = document.getElementById('forum-wv-input').value.trim();
+    state.forumRequirements = document.getElementById('forum-req-input').value.trim();
+    await saveData();
+    closeModal('forum-settings-modal');
+    showToast('世界观已重塑，刷新论坛即可看到新世界。');
+}
+
+// 3. 转发帖子给暗卫
+async function forwardPostToGuard(idx) {
+    const post = state.forumPosts[idx];
+    const unlockedGuards = state.guards.filter(g => g.unlocked);
+    if(unlockedGuards.length === 0) { showToast("目前没有已解锁的暗卫"); return; }
+    
+    const names = unlockedGuards.map(g => g.name).join('、');
+    const targetName = prompt(`要将此帖转发给哪位暗卫？\n可选：${names}`);
+    if(!targetName) return;
+    
+    const guard = unlockedGuards.find(g => g.name === targetName);
+    if(!guard) { showToast("查无此人"); return; }
+    
+    // 塞进他的私聊记录
+    const shareMsg = `【转发帖子】《${post.title}》\n内容：${post.summary}\n—— 殿下想听听你的看法。`;
+    if(!guard.chatHistory) guard.chatHistory = [];
+    guard.chatHistory.push({ role: 'user', content: shareMsg, favorited: false });
+    await saveData();
+    
+    showToast(`已送达 ${guard.name} 处，去私聊看看他的回应吧！`);
+}
+
+// 4. 命令指定暗卫发帖
+async function orderGuardToPost() {
+    const guard = state.currentGuard;
+    if(!guard) return;
+    
+    showToast(`${guard.name} 领命，正在构思匿名内容...`);
+    closeModal('guard-detail-modal');
+    
+    const prompt = `你现在是暗卫【${guard.name}】。
+    【论坛背景设定】：${state.forumWorldview}
+    请你根据目前的性格和对殿下的情感，在论坛发一个匿名帖子。
+    要求输出JSON格式：{"title":"标题", "summary":"内容"}`;
+
+    try {
+        const res = await callAI([{ role: 'user', content: prompt }], 0.85);
+        const data = JSON.parse(res.replace(/```json|```/g, '').trim());
+        
+        const newPost = {
+            tag: "指定发帖",
+            title: data.title,
+            user: `[匿名·${guard.name.charAt(0)}某]`, 
+            time: "刚刚",
+            summary: data.summary,
+            replies_list: [],
+            likes: 0,
+            views: 1
+        };
+        
+        if(!state.forumPosts) state.forumPosts = [];
+        state.forumPosts.unshift(newPost);
+        await saveData();
+        openForumModal(); 
+    } catch (e) {
+        showToast("发帖失败，暗卫可能在出任务...");
+    }
+}
+// 转发当前查看的帖子
+function forwardCurrentPost() {
+    if (currentForumIndex === null) {
+        showToast("请先选择一个帖子");
+        return;
+    }
+    forwardPostToGuard(currentForumIndex);
+}
+
 </script>
 </body>
 </html>
